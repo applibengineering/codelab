@@ -327,7 +327,6 @@ ul, li {
   margin: 0 auto;
   width: 90vw;
   max-width: 1024px;
-  background-color: #fff;
 }
 
 #banner {
@@ -466,8 +465,6 @@ ul, li {
     flex-direction: column;
     align-items: center;
   }
- 
-  
   .banner-technologies {
     position: absolute;
     width: 100%;
@@ -475,7 +472,7 @@ ul, li {
     z-index: 1;
   }
   .banner-title {
-    font-size: 10vw;
+    font-size: 7vw;
   }
   .banner-meta {
     display: none;

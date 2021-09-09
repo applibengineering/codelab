@@ -16,7 +16,6 @@
 
 @import "_variables";
 @import "_categories";
-@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
 
 $card-width: 330px;
 $card-row-height: 250px; // normal mode
@@ -79,20 +78,10 @@ $card-col-height: 200px; // column mode
   }
 
   .description {
-	font-size:20px;
-	font-family: 'Open Sans', sans-serif;
     padding: $keyline * 2 $keyline * 2 0 $keyline * 2;
     flex: 1 0 auto;
     color: #212121;
     -webkit-font-smoothing: antialiased;
-  }
-  
-  .summary {
-    padding: $keyline * 2 $keyline * 2 0 $keyline * 2;
-    flex: 1 0 auto;
-    color: #212121;
-    -webkit-font-smoothing: antialiased;
-	font-size:15px;
   }
 }
 
