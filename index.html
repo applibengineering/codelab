@@ -96,6 +96,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <a href="/">
           <img src="/images/logo1.jpg" class="logo-devs" alt="Codelabs">
         </a>
+		 <div id="searchbar">
+          <paper-input-container no-label-float>
+            <paper-icon-button prefix icon="search"></paper-icon-button>
+            <label>Search</label>
+            <input is="iron-input" bind-value="{{searchVal}}" on-keydown="onSearchKeyDown">
+          </paper-input-container>
+        </div>
       </div>
     </div>
     
@@ -108,6 +115,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <p class="test">
             Welcome! AppLibGroup-Labs will guide you through the process of developing libraries in HarmonyOs, building a small application, or adding a new feature to an existing application.
             <br>
+			<br>
+			<a href="https://github.com/applibgroup" class="color-add">ApplibGroup on Github</a>
           </p>
           </div>
 		  </div>
@@ -115,62 +124,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <main>
       <div id="filters" class="site-width layout horizontal center justified">
-        <div id="sortby">
+        <div id="sortby" class="color-add">
           <paper-tabs selected="0" noink on-iron-activate="sortBy">
             <paper-tab>A-Z</paper-tab>
             <paper-tab>Recent</paper-tab>
             <paper-tab>Duration</paper-tab>
           </paper-tabs>
-        </div>
-
-        
-        <paper-dropdown-menu
-          label="Choose an option"
-          class="dropdown-filter"
-          no-label-float
-          noink no-animations
-        >
-          <paper-listbox
-            id="eventList"
-            slot="dropdown-content"
-            class="dropdown-content"
-          ><a href="/medium/" tabindex="-1">
-                  <paper-item>Medium Articles</paper-item>
-                </a>
-              <a href="/meetup/" tabindex="-1">
-                  <paper-item>Meetup Group</paper-item>
-                </a>
-              
-          </paper-listbox>
-        </paper-dropdown-menu>
-        </div>
+        </div></div>
 
       <card-sorter id="cards" class="site-width">
         
-          
-            
-            <a href="/codelabs\applib-dev-guide\index.html?index=..%2F..index" on-tap="navigate"
-               class="codelab-card category-training"
-               data-category="Training"
-               data-title="Applibgroup development guide"
-               data-duration="16"
-               data-updated="2021-05-19T11:06:36Z"
-               data-tags="cds17,chrome-dev-summit-2016,devfest18,gdd17,io2016,io2017,io2018,io2019,jsconfeu,kiosk,pwa-dev-summit,pwa-roadshow,tag-web,typtwd17,web"
-               data-pin=""
-			   data-description="In this codelab, you&#39;ll get familiar with Application Library Engineering Group&#39;s Development Guide.">
-			   <div class="category-entry">
-              <div class="description">Applibgroup development guide</div>
-			  <div class="card-duration">
-                <span>16 min </span>
-                <span>Updated May 19, 2021</span>
-              </div>
-			  <div class="summary">In this codelab, you&#39;ll get familiar with Application Library Engineering Group&#39;s Development Guide.</div>
-              <div class="card-footer">
-                <paper-button class="training-bg">Start</paper-button>
-              </div>
-			  </div>
-            </a>
-          
           
             
             <a href="/codelabs\hmos-lib-port-guide\index.html?index=..%2F..index" on-tap="navigate"
@@ -223,7 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="link-list">
           <label>Developer Discussions</label>
           <ul>
-            <li><a href="https://join.slack.com/t/applibgroup/shared_invite/zt-n5yze4r7-xnwOeUv07Lw9rYMFHRSCjw">Join Slack</a></li>
+            <li><a href="https://discord.gg/2fpxnwvSeF">Join Discord</a></li>
           </ul>
         </div>
         <div class="link-list">
