@@ -99,7 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="mainToolbar" class="paper-header">
       <div class="site-width layout horizontal">
         <a href="/">
-          <img src="/images/logo.png" class="logo-devs" alt="Codelabs Logo">
+          <img src="/images/logo1.jpg" class="logo-devs" alt="Codelabs">
         </a>
         <div id="searchbar">
           <paper-input-container no-label-float>
@@ -114,15 +114,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     {# Event pages force down attribute. On homepage, it's applied dynamically. #}
     <header id="banner" {% if view.id != 'default' -%}down{%- else %}down$="[[_toBoolean(selectedFilter)]]"{%- endif %}>
-      <div class="site-width">
         {% if view.id == 'default' %}
-        <h2 class="banner-title">Welcome to AppLibGroup-Labs!</h2>
+        <h2 class="banner-title" >CodeLabs</h2>
         <div class="banner-description"
              data-filter-selected$="{% raw %}[[_toBoolean(selectedFilter)]]{% endraw %}">
-          <p class="banner-info">
-            AppLibGroup-Labs provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling & porting libraries, building a small application, or adding a new feature to an existing application.
+          <p class="test">
+            Welcome! AppLibGroup-Labs will guide you through the process of developing libraries in HarmonyOs, building a small application, or adding a new feature to an existing application.
             <br>
-            <a href="https://github.com/applibgroup">AppLibGroup on GitHub</a>
+			<br>
+			<a href="https://github.com/applibgroup" class="color-add">ApplibGroup on Github</a>
           </p>
         {%- else -%}
           <div class="banner-description">
@@ -140,36 +140,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <main>
       <div id="filters" class="site-width layout horizontal center justified">
-        <div id="sortby">
+        <div id="sortby" class="color-add">
           <paper-tabs selected="0" noink on-iron-activate="sortBy">
             <paper-tab>A-Z</paper-tab>
             <paper-tab>Recent</paper-tab>
             <paper-tab>Duration</paper-tab>
           </paper-tabs>
         </div>
-
-        {% if view.id == 'default' && views|length > 1 %}
-        <paper-dropdown-menu
-          label="Choose an event"
-          class="dropdown-filter"
-          no-label-float
-          noink no-animations
-        >
-          <paper-listbox
-            id="eventList"
-            slot="dropdown-content"
-            class="dropdown-content"
-          >
-            {%- for view in views -%}
-              {%- if view.id != 'default' && !view.hidden -%}
-                <a href="/{{view.url}}/" tabindex="-1">
-                  <paper-item>{{view.title}}</paper-item>
-                </a>
-              {%- endif -%}
-            {%- endfor %}
-          </paper-listbox>
-        </paper-dropdown-menu>
-        {% endif %}
 
         {%- if showcats -%}
         <paper-dropdown-menu
@@ -209,7 +186,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                data-duration="{{codelab.duration}}"
                data-updated="{{codelab.updated}}"
                data-tags="{{codelab.tags}}"
-               data-pin="{{codelabPin(view, codelab)}}">
+               data-pin="{{codelabPin(view, codelab)}}"
+			   data-description="{{codelab.summary}}">
+			   <div class="category-entry">
               {%- if codelabPin(view, codelab) -%}
                 <div class="card-pin"></div>
               {%- endif -%}
@@ -218,10 +197,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <span>{%- if codelab.duration -%}{{codelab.duration}} min {%- endif -%}</span>
                 <span>{%- if codelab.updated -%}Updated {{codePrettyDate(codelab.updated)}}{%- endif -%}</span>
               </div>
+			  <div class="summary">{{codelab.summary}}</div>
               <div class="card-footer">
-                <div class="category-icon {{categoryClass(codelab, cat.level)}}-icon"></div>
                 <paper-button class="{{categoryClass(codelab, cat.level)}}-bg">Start</paper-button>
               </div>
+			  </div>
             </a>
           {%- endif %}
         {%- endfor %}
@@ -251,7 +231,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="link-list">
           <label>Developer Discussions</label>
           <ul>
-            <li><a href="https://join.slack.com/t/applibgroup/shared_invite/zt-n5yze4r7-xnwOeUv07Lw9rYMFHRSCjw">Join Slack</a></li>
+            <li><a href="https://discord.gg/2fpxnwvSeF">Join Discord</a></li>
           </ul>
         </div>
         <div class="link-list">
