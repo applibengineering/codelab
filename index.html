@@ -12,10 +12,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Codelabs from Applibgroup provides a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling &amp; porting libraries, building a small application, or adding a new feature to an existing application.">
+  <meta name="description" content="AppLibGroup-Labs provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling &amp; porting libraries, building a small application, or adding a new feature to an existing application.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="generator" content="Codelabs from Applibgroup">
-  <meta name="application-name" content="Codelabs from Applibgroup">
+  <meta name="generator" content="AppLibGroup-Labs">
+  <meta name="application-name" content="AppLibGroup-Labs">
   <link rel="canonical" href="https://example.com/" />
   <link rel="preconnect" href="https://www.google-analytics.com" />
 
@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
 
-  <title>Codelabs from Applibgroup</title>
+  <title>AppLibGroup-Labs</title>
 
   <link rel="stylesheet" href="/styles/main.css">
 
@@ -55,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="#455a64">
-  <meta name="apple-mobile-web-app-title" content="Codelabs from Applibgroup">
+  <meta name="apple-mobile-web-app-title" content="AppLibGroup-Labs">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="194x194" href="/images/favicons/favicon-194x194.png">
@@ -68,8 +68,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="theme-color" content="#455a64">
 
   <meta name="og:type" property="og:type" content="website" />
-  <meta name="og:title" property="og:title" content="Codelabs from Applibgroup" />
-  <meta name="og:description" property="og:description" content="Codelabs from Applibgroup provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling &amp; porting libraries, building a small application, or adding a new feature to an existing application." />
+  <meta name="og:title" property="og:title" content="AppLibGroup-Labs" />
+  <meta name="og:description" property="og:description" content="AppLibGroup-Labs provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling &amp; porting libraries, building a small application, or adding a new feature to an existing application." />
   <meta name="og:url" property="og:url" content="https://example.com/" />
   <meta name="og:site_name" property="og:site_name" content="Codelabs" />
   <meta name="og:determiner" property="og:determiner" content="the" />
@@ -82,8 +82,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="og:image:alt" property="og:image:alt" content="Codelabs" />
 
   <meta name="twitter:card" property="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" property="twitter:title" content="Codelabs from Applibgroup" />
-  <meta name="twitter:description" property="twitter:description" content="Codelabs from Applibgroup provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling &amp; porting libraries, building a small application, or adding a new feature to an existing application." />
+  <meta name="twitter:title" property="twitter:title" content="AppLibGroup-Labs" />
+  <meta name="twitter:description" property="twitter:description" content="AppLibGroup-Labs provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling &amp; porting libraries, building a small application, or adding a new feature to an existing application." />
   <meta name="twitter:image" property="twitter:image" content="/images/og-image.png" />
   <meta name="twitter:url" property="twitter:url" content="https://example.com/" />
 </head>
@@ -94,9 +94,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="mainToolbar" class="paper-header">
       <div class="site-width layout horizontal">
         <a href="/">
-          <img src="/images/logo.png" class="logo-devs" alt="Codelabs Logo">
+          <img src="/images/logo1.jpg" class="logo-devs" alt="Codelabs">
         </a>
-        <div id="searchbar">
+		 <div id="searchbar">
           <paper-input-container no-label-float>
             <paper-icon-button prefix icon="search"></paper-icon-button>
             <label>Search</label>
@@ -106,73 +106,100 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </div>
     
-
     
     <header id="banner" down$="[[_toBoolean(selectedFilter)]]">
-      <div class="site-width">
         
-        <h2 class="banner-title">Welcome to Codelabs from Applibgroup!</h2>
+        <h2 class="banner-title" >CodeLabs</h2>
         <div class="banner-description"
              data-filter-selected$="[[_toBoolean(selectedFilter)]]">
-          <p class="banner-info">
-            Codelabs from Applibgroup provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling & porting libraries, building a small application, or adding a new feature to an existing application.
+          <p class="test">
+            Welcome! AppLibGroup-Labs will guide you through the process of developing libraries in HarmonyOs, building a small application, or adding a new feature to an existing application.
             <br>
-            <a href="https://github.com/applibgroup">AppLibGroup on GitHub</a>
+			<br>
+			<a href="https://github.com/applibgroup" class="color-add">ApplibGroup on Github</a>
           </p>
           </div>
-      </div>
+		  </div>
     </header>
 
     <main>
       <div id="filters" class="site-width layout horizontal center justified">
-        <div id="sortby">
+        <div id="sortby" class="color-add">
           <paper-tabs selected="0" noink on-iron-activate="sortBy">
             <paper-tab>A-Z</paper-tab>
             <paper-tab>Recent</paper-tab>
             <paper-tab>Duration</paper-tab>
           </paper-tabs>
-        </div>
-
-        
-        <paper-dropdown-menu
-          label="Choose an event"
-          class="dropdown-filter"
-          no-label-float
-          noink no-animations
-        >
-          <paper-listbox
-            id="eventList"
-            slot="dropdown-content"
-            class="dropdown-content"
-          ><a href="/medium/" tabindex="-1">
-                  <paper-item>Medium Articles</paper-item>
-                </a>
-              <a href="/meetup/" tabindex="-1">
-                  <paper-item>Meetup Group</paper-item>
-                </a>
-              
-          </paper-listbox>
-        </paper-dropdown-menu>
-        </div>
+        </div></div>
 
       <card-sorter id="cards" class="site-width">
+        
+          
             
             <a href="/codelabs\hmos-lib-port-guide\index.html?index=..%2F..index" on-tap="navigate"
                class="codelab-card category-training"
                data-category="Training"
                data-title="HarmonyOS Library Development Guide"
                data-duration="26"
-               data-updated="2021-05-19T11:18:45Z"
+               data-updated="2021-07-28T14:28:00Z"
                data-tags="cds17,chrome-dev-summit-2016,devfest18,gdd17,io2016,io2017,io2018,io2019,jsconfeu,kiosk,pwa-dev-summit,pwa-roadshow,tag-web,typtwd17,web"
-               data-pin="">
+               data-pin=""
+			   data-description="In this codelab, you&#39;ll get familiar with HarmonyOS library development guide
+.">
+			   <div class="category-entry">
               <div class="description">HarmonyOS Library Development Guide</div>
-              <div class="card-duration">
+			  <div class="card-duration">
                 <span>26 min </span>
                 <span>Updated Jul 28, 2021</span>
               </div>
+			  <div class="summary">In this codelab, you&#39;ll get familiar with HarmonyOS library development guide
+.</div>
               <div class="card-footer">
-                <div class="category-icon training-icon"></div>
                 <paper-button class="training-bg">Start</paper-button>
+              </div>
+			  </div>
+            </a>
+          
+            <a href="/codelabs\how-to-use-webview-in-harmonyos\index.html?index=..%2F..index" on-tap="navigate"
+               class="codelab-card category-training"
+               data-category="Training"
+               data-title="HarmonyOS WebView"
+               data-duration="29"
+               data-updated="2021-09-14T12:18:45Z"
+               data-tags="cds17,chrome-dev-summit-2016,devfest18,gdd17,io2016,io2017,io2018,io2019,jsconfeu,kiosk,pwa-dev-summit,pwa-roadshow,tag-web,typtwd17,web"
+               data-pin="""
+               data-description="In this codelab, you&#39;ll learn how to use WebView component in HarmonyOS.">
+               <div class="category-entry">
+                 <div class="description">HarmonyOS WebView</div>
+                 <div class="card-duration">
+                 <span>29 min </span>
+                 <span>Updated Sep 14, 2021</span>
+               </div>
+               <div class="summary">In this codelab, you&#39;ll learn how to use WebView component in HarmonyOS</div>
+               <div class="card-footer">
+               <paper-button class="training-bg">Start</paper-button>
+               </div>
+               </div>
+            </a>
+			<a href="/codelabs\applib-static-analysis-guide\index.html?index=..%2F..index" on-tap="navigate"
+               class="codelab-card category-training"
+               data-category="Training"
+               data-title="Static Code Analysis Codelab"
+               data-duration="28"
+               data-updated="2021-09-25T16:05:12Z"
+               data-tags="cds17,chrome-dev-summit-2016,devfest18,gdd17,io2016,io2017,io2018,io2019,jsconfeu,kiosk,pwa-dev-summit,pwa-roadshow,tag-web,typtwd17,web"
+               data-pin=""
+			   data-description="In this codelab, you&#39;ll get familiar with static code analysis and tools used for same in the community for development of HarmonyOS and Android libraries or applications.">
+               <div class="category-entry">
+               <div class="description">Static Code Analysis Codelab</div>
+              <div class="card-duration">
+                <span>28 min </span>
+                <span>Updated Sep 25, 2021</span>
+               </div>
+               <div class="summary">In this codelab, you&#39;ll get familiar with static code analysis and tools used for same in the community for development of HarmonyOS and Android libraries or applications.</div>
+               <div class="card-footer">
+               <paper-button class="training-bg">Start</paper-button>
+               </div> 
               </div>
             </a>
           
@@ -220,7 +247,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="link-list">
           <label>Developer Discussions</label>
           <ul>
-            <li><a href="https://join.slack.com/t/applibgroup/shared_invite/zt-n5yze4r7-xnwOeUv07Lw9rYMFHRSCjw">Join Slack</a></li>
+            <li><a href="https://discord.gg/2fpxnwvSeF">Join Discord</a></li>
           </ul>
         </div>
         <div class="link-list">

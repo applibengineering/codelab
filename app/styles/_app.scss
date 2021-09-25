@@ -16,6 +16,7 @@
 
 @import "_variables";
 @import "_material";
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
 
 * {
   box-sizing: border-box;
@@ -24,7 +25,7 @@
 }
 
 body {
-  background: $backgroundColor;
+  
 
   &.view {
     #banner {
@@ -76,10 +77,27 @@ ul, li {
   max-width: 1024px;
 }
 
+.category-entry {
+  margin: 0 auto;
+  height:20vw;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.test {
+margin: 0 auto;
+text-align: center;
+width: 60%;
+color: black;
+}
+
+.color-add {
+color: blue;
+}
+
 #banner {
-  background-color: #fff;
   @include keyline-40();
-  padding: 40px 0 48px 0;
+  padding: 50px 0 50px 0;
   box-shadow: 0px 3px 6px -3px $grey400;
 
   &[down] {
@@ -206,6 +224,7 @@ ul, li {
     line-height: 24px;
     align-self: flex-start;
     width: 100%;
+	text-align: center;
   }
   .banner-description {
     display: flex;
@@ -240,18 +259,23 @@ ul, li {
     }
     .banner-title {
       margin-bottom: $keyline * 2;
+	  text-align: center;
+	  font-family: 'Open Sans', sans-serif;
+	  font-weight: bold;
     }
   }
 
   .banner-info {
     margin-right: $keyline * 4;
     line-height: $keyline * 4;
+	text-align: center;
   }
   .banner-info a {
     text-decoration: underline;
   }
   .banner-description {
     display: flex;
+	text-align: center;
     .banner-info {
       flex: 1;
     }
