@@ -1,0 +1,349 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Static Code Analysis Codelab</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="applib-static-analysis-guide"
+                  title="Static Code Analysis Codelab"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Overview" duration="3">
+        <p class="image-container"><img style="width: 128.08px" src="img\\257e17b8d759b939.png"></p>
+<p>This codelab is part of the Applibgroup Codelabs. You&#39;ll get the most value out of this course if you work through the codelabs in sequence, but it is not mandatory. All the course codelabs are listed on the <a href="https://codelabs.applibgroup.dev" target="_blank">ApplibGroup HarmonyOS Codelabs</a>.</p>
+<p>Static Code Analysis is an essential step before you commit the code to the repository in the Community. This process helps the developer / team to detect bugs against a set of active rules categorized into Code smells, Bugs, Vulnerabilities etc in the code. If you try to commit the code before resolving these issues your code commit will fail with errors.</p>
+<p>Github is configured with CI Actions that triggers automatically when you create a Pull request and push your code that results in failure of Code commit. So, it&#39;s mandatory to resolve all bugs/errors found during sonarqube code analysis before you commit your code. </p>
+<p>Screenshot shows sonarcloud dashboard when all bugs are resolved -</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\9a90fad4de39ef80.png"></p>
+<h2 class="checklist" is-upgraded>What you&#39;ll learn</h2>
+<p>You will learn following concepts:</p>
+<ol type="1" start="1">
+<li>Introduction on Static Analysis and Types</li>
+<li>Types of Static Analysis ToolsLocal configuration of SonarQube in your HarmonyOS Project</li>
+<li>Getting SonarQube server up and running</li>
+<li>Analysis of your cloud with Sonarqube server locally</li>
+<li>Generate quality gate for your code once you push the code to Community Github repository</li>
+<li>Local configuration of Checkstyle in your HarmonyOS Project</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prerequisites" duration="2">
+        <h2 is-upgraded>Basic development experience</h2>
+<p>It will be good to have if you have an understanding of SDK, library, gradle etc. You can refer to Basic<a href="https://github.com/applibgroup/HarmonyOS-Knowledgebase/tree/main/Basic" target="_blank"> HarmonyOS Development</a> for the same.</p>
+<h2 is-upgraded>Java</h2>
+<p>Install Java (Oracle JRE 11 or OpenJDK 11) installed on your machine.</p>
+<h2 is-upgraded>DevEco Studio</h2>
+<p>Install DevEco Studio. For details, please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/software_install-0000001053582415" target="_blank">Download and Install Software</a>. Set up the DevEco Studio development environment. The DevEco Studio development environment needs to depend on the network environment. It needs to be connected to the network to ensure the normal use of the tool. You can configure the development environment according to the following two situations:</p>
+<ul>
+<li>If you can directly access the Internet, you only need to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427#section67391947173214" target="_blank">download the HarmonyOS SDK</a>.</li>
+<li>If the network cannot directly access the Internet, it needs to be accessed through a proxy server. Please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427" target="_blank">Configuring the Development Environment</a> . Developers can refer to the following link to complete the relevant configuration for device debugging:</li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_device-0000001053822404" target="_blank">Use real machine for debugging</a></li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_emulator-0000001115721921" target="_blank">Use the simulator for debugging</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Introduction" duration="2">
+        <h2 is-upgraded>Static Code Analysis</h2>
+<p>Static analysis, also called static code analysis, is the process of analyzing a computer program to find problems in it without actually executing it.</p>
+<h3 is-upgraded>What kind of problems can static analysis find?</h3>
+<ol type="1" start="1">
+<li>Potential security vulnerabilities</li>
+<li>Bug risks and anti-patterns</li>
+<li>Violation of code style guidelines</li>
+<li>Performance issues</li>
+<li>Dead or unused code</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\98fdb9fcc3f8ef08.png"> <img style="width: 24.86px" src="img\\a72b136045271cba.png"></p>
+<h2 is-upgraded>Dynamic Code Analysis</h2>
+<p>Dynamic analysis, also called dynamic code analysis, is the process of analyzing a computer software by executing the program in real-time – in contrast to Static code analysis.</p>
+<h3 is-upgraded>What kind of problems can dynamic analysis find?</h3>
+<ol type="1" start="1">
+<li>Lack of code coverage</li>
+<li>Errors in memory allocation and leaks</li>
+<li>Fault localization according to failing and passing test cases</li>
+<li>Concurrency errors such as race conditions, exceptions, resource &amp; memory leaks, and security attack vulnerabilities</li>
+<li>Performance bottlenecks and exposed security vulnerabilities</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Types of Static Analysis Tools" duration="1">
+        <h3 is-upgraded>Basically, there are a number of tools and platforms for Static Code Analysis as listed below:</h3>
+<ol type="1" start="1">
+<li>SonarQube</li>
+<li>CheckStyle</li>
+<li>Findbugs</li>
+<li>Embold</li>
+<li>Reshift</li>
+</ol>
+<h3 is-upgraded>However, this article guides about tools used in the Application Library Engineering community.</h3>
+<ol type="1" start="1">
+<li><h3 is-upgraded>SonarQube / SonarCloud</h3>
+</li>
+</ol>
+<ol type="1" start="1">
+<li>It is the popular static analysis tool in  Code Quality and Code Security.</li>
+<li>It is used for automated code analysis with CI/CD Integration.</li>
+<li>SonarQube fits with your existing tools and supports more than 25 programming languages.</li>
+</ol>
+<ol type="1" start="2">
+<li><h3 is-upgraded>CheckStyle</h3>
+</li>
+</ol>
+<ol type="1" start="1">
+<li>It basically analyses the source code of the project and looks to improve the coding standard by traversing over simple AST generated by Checkstyle.</li>
+<li>It verifies the source code for coding conventions like headers, whitespaces, formatting, imports etc.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\31869475342882d7.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configuration of SonarQube" duration="1">
+        <h2 is-upgraded>Tools Required: </h2>
+<ul>
+<li>SonarQube : for hosting a server instance [<a href="https://www.sonarqube.org/success-download-community-edition/" target="_blank">Download SonarQube</a>]</li>
+<li>Java 11 : SonarQube requires Java 11 to run without issues [Refer <a href="https://codelabs-preview.appspot.com/?file_id=1vNAYjzZqw0m_bfa0mHEzxwFlCmHenIc5T0fV33WPGH0#1" target="_blank">#2</a> Prerequisites section]</li>
+<li>DevECO IDE (must have a local project)  [Refer <a href="https://codelabs-preview.appspot.com/?file_id=1vNAYjzZqw0m_bfa0mHEzxwFlCmHenIc5T0fV33WPGH0#1" target="_blank">#2</a> Prerequisites section]</li>
+</ul>
+<h2 is-upgraded>Steps to configure sonarQube locally</h2>
+<ul>
+<li>Create &amp; Run a server instance</li>
+<li>Add the sonar configurations in build.gradle of the project</li>
+<li>Execute SonarQube from the IDE</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Config SonarQube: Step 1" duration="5">
+        <h2 is-upgraded>Create &amp; Run a server instance</h2>
+<h3 is-upgraded>Step 1.1</h3>
+<ul>
+<li>Make sure the SonarQube &amp; java 11 is installed</li>
+<li>Open File explorer in your Windows OS</li>
+<li>Navigate to the SonarQube directory in Windows explorer. In my system it is located at C:\sonarqube-9.0.0.45539\bin\windows-x86-64</li>
+<li>Run StartSonar.bat in in above folder as shown below</li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img\\c3708b387bf4cc3b.png"></p>
+<h3 is-upgraded>Step 1.2</h3>
+<p>Then, open this URL in browser : <a href="http://localhost:9000/" target="_blank">http://localhost:9000/</a> and login</p>
+<p>If login is done for the first time, then use  default credentials, later change the password.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\425a6f47bd28d44a.png"></p>
+<aside class="special"><p><strong>Credentials</strong>:  User / Password : admin / admin</p>
+</aside>
+<h3 is-upgraded>Step 1.3</h3>
+<p>Once the login is successful, a new project can be created, by clicking on Manually option (last option)</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\677f031055356ef4.png"></p>
+<h3 is-upgraded>Step 1.4</h3>
+<p>Later, add a project display name and project key (project must be the same as that present in project&#39;s build.gradle). Then, Click on the Setup button.</p>
+<p class="image-container"><img style="width: 464.00px" src="img\\7cb7410927d85b4c.png"></p>
+<h3 is-upgraded>Step 1.5: </h3>
+<p>Select on the first option &#34;Locally&#34;</p>
+<p class="image-container"><img style="width: 593.00px" src="img\\c9741bc7844a3f63.png"></p>
+<h3 is-upgraded>Step 1.6: </h3>
+<p>If you already have a token, you can choose the &#34;Use existing token&#34; option and add the token.</p>
+<p>If not, select &#34;Generate token&#34; and copy the token for future reference. Then click on Continue.</p>
+<p class="image-container"><img style="width: 553.00px" src="img\\1fc27d80e3e6ce5f.png"></p>
+<p>The above screenshot shows when the user selects the &#34;Generate token&#34; option.</p>
+<p class="image-container"><img style="width: 560.00px" src="img\\9221bc6e8c0100f.png"></p>
+<h3 is-upgraded>Step 1.7: </h3>
+<p>Since the project will be run using gradle, Select  Gradle in the following section.</p>
+<p class="image-container"><img style="width: 584.00px" src="img\\190f89ba5d8da7b5.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Config SonarQube: Step 2" duration="2">
+        <h2 is-upgraded>Step 2.1: Add the sonar configurations in Project level build.gradle</h2>
+<p>Add all the sonar dependencies mentioned below in the project&#39;s build.gradle</p>
+<pre><code>apply plugin: &#39;org.sonarqube&#39;
+
+classpath &#34;org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3&#34;
+
+sonarqube {
+        properties {
+            property &#34;sonar.projectKey&#34;, &#34;applibgroup_MyApp&#34;
+            property &#34;sonar.organization&#34;, &#34;applibgroup&#34;
+            property &#34;sonar.host.url&#34;, &#34;http://localhost:9000&#34;
+            property &#34;sonar.sources&#34;, &#34;entry&#34;
+            property &#34;sonar.java.binaries&#34;, &#34;entry/build&#34;
+        }
+}</code></pre>
+<aside class="warning"><p><strong>Caution</strong>:Make sure the following sonar.host.url is modified</p>
+<p>property &#34;sonar.host.url&#34;, &#34;http://localhost:9000/&#34;</p>
+</aside>
+<h2 is-upgraded>Step 2.2: Add the following info in gradle.properties</h2>
+<pre><code>systemProp.sonar.host.url=http://localhost:9000
+systemProp.sonar.login=6*********************************e</code></pre>
+<p class="image-container"><img style="width: 624.00px" src="img\\455d35e740e51b6a.png"></p>
+<aside class="warning"><p><strong>Note</strong>: &#34;systemProp.sonar.login&#34; value should be the same token value that was used while creating the project in the sonar dashboard (http://localhost:9000).</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Config SonarQube: Step 3" duration="2">
+        <h2 is-upgraded>Step 3.1: Execute SonarQube from the IDE</h2>
+<p>Run the following command from the terminal after doing a clean build.</p>
+<pre><code>gradlew sonarqube</code></pre>
+<p>After the execution is complete, open url <a href="http://localhost:9000/projects" target="_blank">http://localhost:9000/projects</a></p>
+<p>Select the project for which the sonar-qube was executed to find the issues.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\15d5d1b108f9ae9a.png"></p>
+<p>Now, Keep calm and fix the issues found☺</p>
+<p class="image-container"><img style="width: 310.02px" src="img\\9f825e913fb9da8d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configuration of Checkstyle" duration="5">
+        <h2 is-upgraded>Steps to configure CheckStyle in DevEco Studio (IDE)</h2>
+<h3 is-upgraded>Step 1: Install the CheckStyle-IDEA Plugin in the IDE</h3>
+<ul>
+<li>Open DevEco Studio and go to File -&gt; Settings -&gt; Plugins </li>
+<li>Search for CheckStyle in the searchbar and install it</li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img\\7ea20658eca6171b.png"></p>
+<h3 is-upgraded>Step 2: Download the Checkstyle configuration file </h3>
+<ul>
+<li>Prepare a checkstyle.xml locally in your PC with the required configurations.</li>
+<li>The required configurations can be taken from <a href="https://github.com/applibgroup/HarmonyOsSdk/blob/main/config/checkstyle.xml" target="_blank">https://github.com/applibgroup/HarmonyOsSdk/blob/main/config/checkstyle.xml</a></li>
+</ul>
+<h3 is-upgraded>Step 3: Configure the CheckStyle configuration file to the installed plugin</h3>
+<ul>
+<li>Go to File -&gt; Tools -&gt; CheckStyle</li>
+<li>Add the config file as shown below and hit next and complete the flow.</li>
+<li>After adding the config file, select it and click on Apply to close the dialog.</li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img\\d1d36ab18e28cb1c.gif"></p>
+<h3 is-upgraded>Step 4: Execute Checkstyle tool on the code</h3>
+<ul>
+<li>Select the CheckStyle tab in the bottom menu bar.</li>
+<li>Make sure the newly added config file is selected and then execute the checkstyle to find errors with available options</li>
+</ul>
+<aside class="special"><p><strong>Available options for checkstyle</strong>: </p>
+<ol type="1" start="1">
+<li>Check Current File</li>
+<li>Check Current Module</li>
+<li>Check Current Project</li>
+</ol>
+</aside>
+<p class="image-container"><img style="width: 624.00px" src="img\\e67c190b6bb9e221.gif"></p>
+<p>Once, we see the errors in the Checkstyle section, fix those so that you can move ahead for the code commit  to your github repository. We will see some pre code commit configurations.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pre-Code Commit Config" duration="3">
+        <p>Before you commit your code to the community repository, make sure you follow below instructions:</p>
+<h3 is-upgraded>Steps to configure CheckStyle in DevEco Studio (IDE)</h3>
+<ol type="1" start="1">
+<li><h4 is-upgraded>In the project&#39;s build.gradle make sure the following is added </h4>
+</li>
+</ol>
+<pre><code>apply plugin: &#39;org.sonarqube&#39;
+apply plugin: &#39;checkstyle&#39;</code></pre>
+<ol type="1" start="2">
+<li><h4 is-upgraded>In buildscript-&gt; dependencies (Make sure you add latest gradle version)</h4>
+</li>
+</ol>
+<pre><code>classpath &#34;org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3&#34;</code></pre>
+<ol type="1" start="3">
+<li><h4 is-upgraded>In &#34;allprojects&#34; section</h4>
+</li>
+</ol>
+<pre><code>task checkstyle(type: Checkstyle) {
+
+    showViolations = true
+    configFile file(&#34;config/checkstyle.xml&#34;)
+
+    source &#39;entry/src/main/java&#39;
+    source &#39;circularprogressview/src/main/java&#39;
+    include &#39;**/*.java&#39;
+
+    // empty classpath
+    classpath = files()
+}</code></pre>
+<ol type="1" start="4">
+<li><h4 is-upgraded>In &#34;checkstyle&#34; section</h4>
+</li>
+</ol>
+<pre><code>checkstyle {
+    toolVersion &#34;8.43&#34;
+}</code></pre>
+<ol type="1" start="5">
+<li><h4 is-upgraded>In &#34;sonarqube&#34; section</h4>
+</li>
+</ol>
+<pre><code>sonarqube {
+    properties {
+        property &#34;sonar.projectKey&#34;, &#34;applibgroup_CircularProgressView&#34;
+        property &#34;sonar.organization&#34;, &#34;applibgroup&#34;
+        property &#34;sonar.host.url&#34;, &#34;https://sonarcloud.io&#34;
+        property &#34;sonar.sources&#34;, &#34;entry,circularprogressview&#34;
+        property &#34;sonar.java.binaries&#34;, &#34;entry/build,circularprogressview/build&#34;
+        property &#34;sonar.java.checkstyle.reportPaths&#34;, &#34;build/reports/checkstyle/checkstyle.xml&#34;
+    }
+}</code></pre>
+<h3 is-upgraded>Snapshot of the changes once you made above changes:</h3>
+<p class="image-container"><img style="width: 624.00px" src="img\\42b803652881fee9.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SonarCloud in action" duration="2">
+        <p>Once you push your code and create pull requests, Github actions configured on the Github triggers and start building code for the HarmonyOS project(library / app). Github Actions also runs Checkstyle and Sonar java static tools to create quality gate statistics like<strong> &#34;Build passing&#34; / Build Fail, &#34;Quality Gate Passed&#34; / &#34;Quality Gate Failed&#34;</strong>.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\31869475342882d7.png"></p>
+<p>Once the quality gate is passed and build is passed, your pull request is good for the second level of review by the reviewer / repo maintainer.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Author Info &amp; important links" duration="0">
+        <p>Congratulations, you&#39;ve successfully completed this codelab and learned about how to thoroughly analyze your code without execution about probable bugs, errors, warnings, improvements etc. that can be rectified during the development stage, allowing developers to develop a strong code base.</p>
+<p>You can check our more codelabs <a href="https://codelabs.applibgroup.dev/" target="_blank">here</a> and checkout code samples on <a href="https://github.com/applibgroup/" target="_blank">github</a></p>
+<h2 is-upgraded>Author Info :</h2>
+<p>This codelab is written by <a href="https://github.com/kanaksony" target="_blank">Kanak Sony</a>. You can find me at <a href="mailto:kanaksony@gmail.com" target="_blank">kanaksony@gmail.com</a></p>
+<h2 is-upgraded>Reference Links:</h2>
+<p>The sample gradle file for this codelab can be found here :</p>
+<aside class="special"><p><strong>Sample gradle file:  </strong><a href="https://github.com/applibgroup/CircularDialogs/blob/master/build.gradle" target="_blank">https://github.com/applibgroup/CircularDialogs/blob/master/build.gradle</a></p>
+<p><strong>Checkstyle: </strong><a href="https://github.com/applibgroup/HarmonyOsSdk/blob/main/config/checkstyle.xml" target="_blank">https://github.com/applibgroup/HarmonyOsSdk/blob/main/config/checkstyle.xml</a></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
