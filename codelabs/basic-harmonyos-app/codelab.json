@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-09-27T11:49:52Z",
+  "id": "basic-harmonyos-app",
+  "duration": 16,
+  "title": "Build Basic HarmonyOS App in Java",
+  "authors": "Application Library Engineering Group",
+  "summary": "In this codelab, you'll get familiar with Building your first HarmonyOS App in Java",
+  "source": "1OBV8MVfzTYtl43UBh54CjSPrY3DXxE7-LOGEq5HbXPU",
+  "theme": "sample",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Sample"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/applibgroup/applibgroup.github.io/issues",
+  "ga": "UA-52746336-1",
+  "url": "basic-harmonyos-app"
+}
