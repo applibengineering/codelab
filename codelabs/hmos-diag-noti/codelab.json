@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-09-30T13:13:50Z",
+  "id": "hmos-diag-noti",
+  "duration": 16,
+  "title": "Dialogues and Notifications",
+  "authors": "Application Library Engineering Group",
+  "summary": "In this codelab, you'll get familiar with Building harmonyOS Dialogues and Notifications",
+  "source": "1j1ZnXFv4uCc77CsMenrWvoqtXRA-7CW5jCMCg3suMIY",
+  "theme": "sample",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Sample"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/applibgroup/applibgroup.github.io/issues",
+  "ga": "UA-52746336-1",
+  "url": "hmos-diag-noti"
+}
