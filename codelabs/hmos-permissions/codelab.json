@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-09-14T12:18:45Z",
-  "id": "how-to-use-webview-in-harmonyos",
-  "duration": 29,
-  "title": "HarmonyOS-WebView",
+  "updated": "2021-10-01T17:18:45Z",
+  "id": "hmos-permissions",
+  "duration": 24,
+  "title": "HarmonyOS-Permissions",
   "authors": "Application Library Engineering Group",
-  "summary": "In this codelab, you'll learn how to use WebView component in HarmonyOS.",
-  "source": "how-to-use-webview-in-harmonyos.md",
+  "summary": "In this codelab, you'll get familiar with permissions in HarmonyOS.",
+  "source": "permissions-HarmonyOS.md",
   "theme": "training",
   "status": [
     "published"
@@ -36,5 +36,5 @@
   ],
   "feedback": "https://github.com/applibgroup/applibgroup.github.io/issues",
   "ga": "UA-52746336-1",
-  "url": "how-to-use-webview-in-harmonyos"
+  "url": "hmos-permissions"
 }

@@ -1,0 +1,251 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>HarmonyOS-Permissions</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="hmos-permissions"
+                  title="HarmonyOS-Permissions"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Overview" duration="1">
+        <p>If an application needs to access data of the system or other applications or calls a system capability to implement specific functions such as making phone calls, the system and the related applications should provide the required interfaces. To ensure security, the application permission mechanism is then used to impose restrictions on these interfaces. Application permission enable an application to access and perform designated operations on the designated object. At the application layer , permissions must be explicitly defined and user-authorized to standardized application behavior and permission authorization.</p>
+<p>This tutorial will help you understand how developer can make sure the applications request the permissions dynamically from the user.</p>
+<h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>To build a HarmonyOS application that performs a permission request dynamically to the user and based on the user&#39;s response on the permission request the application must respond accordingly.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Environment Setup" duration="0">
+        <p>Install DevEco Studio. For details, please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/software_install-0000001053582415" target="_blank">Download and Install Software</a>. Set up the DevEco Studio development environment. The DevEco Studio development environment needs to depend on the network environment. It needs to be connected to the network to ensure the normal use of the tool. You can configure the development environment according to the following two situations:</p>
+<ul>
+<li>If you can directly access the Internet, you only need to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427#section67391947173214" target="_blank">download the HarmonyOS SDK</a>.</li>
+<li>If the network cannot directly access the Internet, it needs to be accessed through a proxy server. Please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427" target="_blank">Configuring the Development Environment</a> . Developers can refer to the following link to complete the relevant configuration for device debugging:</li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_device-0000001053822404" target="_blank">Use real machine for debugging</a></li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_emulator-0000001115721921" target="_blank">Use the simulator for debugging</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App Overview" duration="2">
+        <p>The app demonstrates how to build an app that requests the permissions from the user dynamically. To understand this concept, we&#39;ll develop an application that gives a count of the images in the device. Before, querying the user storage to check for the number of images, this app will make sure the required permission i.e. ohos.permission.READ_USER_STORAGE is granted by the user. Only if the permission is granted, the count of images in the device will be displayed. This application will help you learn</p>
+<ol type="1">
+<li>How to configure the required permission in config.json</li>
+<li>How you can check if the permission is already granted by the user</li>
+<li>How you can check if the permission can be requested or not</li>
+<li>How to request the permission from the user dynamically</li>
+<li>How to check the user&#39;s response on requesting for the required permission</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 1: Configure the READ_USER_STORAGE permission in config.json" duration="1">
+        <p>Declare the required permission i.e. ohos.permission.READ_USER_STORAGE in the config.json file. Since we will be wrtiting our code within entry.hap, the permission must be added in the config.json of entry module as shown below: <img alt="snap1" src="img\\9d4100f4b2cfa5b4.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 2: Create the UI for the application" duration="4">
+        <h2 is-upgraded>2.1. ability_main.xml - must have one button</h2>
+<ul>
+<li>User clicks on this button to check the number of images in the device</li>
+</ul>
+<pre><code language="language-xml" class="language-xml">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+    xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+    ohos:height=&#34;match_parent&#34;
+    ohos:width=&#34;match_parent&#34;
+    ohos:alignment=&#34;center&#34;
+    ohos:orientation=&#34;vertical&#34;&gt;
+
+    &lt;Button
+        ohos:id=&#34;$+id:text_load&#34;
+        ohos:height=&#34;match_content&#34;
+        ohos:width=&#34;match_content&#34;
+        ohos:padding=&#34;10vp&#34;
+        ohos:background_element=&#34;$graphic:background_ability_main&#34;
+        ohos:layout_alignment=&#34;horizontal_center&#34;
+        ohos:text=&#34;Click for Total Image Count&#34;
+        ohos:text_size=&#34;40vp&#34;
+        /&gt;
+
+&lt;/DirectionalLayout&gt;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 3: Create a slice for the ability_main.xml and initialize the views and set listeners" duration="3">
+        <p>Create a slice MainAbilitySlice.java for the main page i.e ability_main.xml. After creating the slice, initialize the button present in the layout and also set a click listener to the button. On click of the any of the button, make sure loadImageCount() is invoked.</p>
+<p>PS: loadImageCount() implementation will be implemented as of now. We will implement this method in the upcoming tasks</p>
+<pre><code language="language-java" class="language-java">public class MainAbilitySlice extends AbilitySlice {
+    Button load;
+    @Override
+    public void onStart(Intent intent) {
+        super.onStart(intent);
+        super.setUIContent(ResourceTable.Layout_ability_main);
+        initComponents();
+    }
+
+    public void initComponents() {
+        load = (Button) findComponentById(ResourceTable.Id_text_load);
+        load.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                loadImageCount();
+            }
+        });
+    }
+}
+</code></pre>
+<h2 is-upgraded>Snapshot of MainAbilitySlice</h2>
+<p class="image-container"><img alt="ability_main" src="img\\300643c3a955a0f1.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 4: loadImageCount() must request the READ_USER_STORAGE permission dynamically from the user." duration="5">
+        <h2 is-upgraded>4.1. Call the ohos.app.Context.verifySelfPermission method to check whether the permission has been granted to the application.</h2>
+<p>If yes, the permission request process is complete as the permission is granted, therefore application can access the storage to query the number of images in the device. If no, go to the next step.</p>
+<pre><code language="language-java" class="language-java">    if (verifySelfPermission(permission) == IBundleManager.PERMISSION_GRANTED) {
+        queryUserStorage(this);
+        return;
+    }
+</code></pre>
+<h2 is-upgraded>4.2. Call the canRequestPermission method to check whether the permission can be dynamically requested.</h2>
+<p>If false, permission authorization has been permanently disabled by the user or system. In this case, you can end the permission request process. If true, call the requestPermissionFromUser method to dynamically request permissions.</p>
+<pre><code language="language-java" class="language-java">    if (!canRequestPermission(permission)) {
+        new ToastDialog(this).setText(&#34;Cannot request the permission&#34;).show();
+        return;
+    }
+    requestPermissionsFromUser(new String[]{permission}, reqCode);
+</code></pre>
+<h3 is-upgraded>&#34;requestPermissionsFromUser()&#34; will inflate a permission dialog to request the permission dynamically from the user.</h3>
+<p class="image-container"><img alt="permission_dialog" src="img\\e34e7c454e22864f.png"></p>
+<h2 is-upgraded>4.3. Access the storage to query the number of images present in the device</h2>
+<pre><code language="language-java" class="language-java">    public static void queryUserStorage(Context context) {
+        DataAbilityHelper helper = DataAbilityHelper.creator(context);
+        try {
+            ResultSet resultSet = helper.query(AVStorage.Images.Media.EXTERNAL_DATA_ABILITY_URI,
+                    new String[]{AVStorage.Images.Media.ID}, null);
+            int count = resultSet.getRowCount();
+            new ToastDialog(context).setText(&#34;Total Image Count = &#34; +count).show();
+        } catch (DataAbilityRemoteException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+<h3 is-upgraded>In the end, your loadImageCount() method implementation must look like this</h3>
+<pre><code language="language-java" class="language-java">    public static final int REQUEST_CODE_READ_USER_STORAGE = 101;
+
+    public void loadImageCount() {
+        requestPermission(SystemPermission.READ_USER_STORAGE, REQUEST_CODE_READ_USER_STORAGE);
+    }
+
+    public void requestPermission(String permission, int reqCode) {
+        if (verifySelfPermission(permission) == IBundleManager.PERMISSION_GRANTED) {
+            queryUserStorage(this);
+            return;
+        }
+        if (!canRequestPermission(permission)) {
+            new ToastDialog(this).setText(&#34;Cannot request the permission&#34;).show();
+            return;
+        }
+        requestPermissionsFromUser(new String[]{permission}, reqCode);
+    }
+
+    public static void queryUserStorage(Context context) {
+        DataAbilityHelper helper = DataAbilityHelper.creator(context);
+        try {
+            ResultSet resultSet = helper.query(AVStorage.Images.Media.EXTERNAL_DATA_ABILITY_URI,
+                    new String[]{AVStorage.Images.Media.ID}, null);
+            int count = resultSet.getRowCount();
+            new ToastDialog(context).setText(&#34;Total Image Count = &#34; +count).show();
+        } catch (DataAbilityRemoteException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 5: Check the permission grant result from the user." duration="5">
+        <h2 is-upgraded>Override onRequestPermissionsFromUserResult in MainAbility.java to receive the permission grant result.</h2>
+<p>After user responds to the permission dialog visible on the window, the response from the user can be checked from onRequestPermissionsFromUserResult(int requestCode, String[] permissions, int[] grantResults) in MainAbility.java.</p>
+<pre><code language="language-java" class="language-java">    @Override
+    public void onRequestPermissionsFromUserResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsFromUserResult(requestCode, permissions, grantResults);
+        if (requestCode == MainAbilitySlice.REQUEST_CODE_READ_USER_STORAGE
+                &amp;&amp; grantResults[0] == IBundleManager.PERMISSION_GRANTED) {
+            MainAbilitySlice.queryUserStorage(this);
+        } else {
+            new ToastDialog(this).setText(&#34;Permission denied&#34;).show();
+        }
+    }
+</code></pre>
+<h3 is-upgraded>-&gt; If permission is granted by the user, then application can access the storage to query the number of images in the device.</h3>
+<p class="image-container"><img alt="permission_accept" src="img\\485523e01dfc83aa.png"></p>
+<h3 is-upgraded>-&gt; If permission is denied by the user, then user will be notified as &#34;Permission denied&#34;</h3>
+<p class="image-container"><img alt="permission_denied" src="img\\6c2c3cea291ac7ca.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run the project and install the hap in the simulator" duration="2">
+        <p>Congratulations..!! You have completed all the tasks required for this application.</p>
+<p>Once the code is ready, you can build the project and check the functionality of the application in the simulator. Screenshots of the application are below</p>
+<ul>
+<li>When user accepts the permission request and has 5 images in the device.</li>
+</ul>
+<p class="image-container"><img alt="accept_permission" src="img\\9d4100f4b2cfa5b4.PNG"></p>
+<ul>
+<li>When user denies the permission request</li>
+</ul>
+<p class="image-container"><img alt="deny_permission" src="img\\9d4100f4b2cfa5b4.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Author Info &amp; Documentation links" duration="1">
+        <h2 is-upgraded>Author Info :</h2>
+<p>This codelab is written by Samuel Abhishekam M. You can find me @samuelabhishekamm@gmail.com</p>
+<h2 is-upgraded>Documentation Links:</h2>
+<p>You can find the complete <a href="https://github.com/Meknaj/Permissions" target="_blank">demo source code</a> here.</p>
+<p>Checkout the official documentation of <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/security-permissions-overview-0000000000029883" target="_blank">HarmonyOS Permisssions</a> and check out the <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/security-permissions-guidelines-0000000000029886" target="_blank">permission development guidelines</a> &amp; <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/security-permissions-available-0000001051089272" target="_blank">Available permissions</a> in HarmonyOS and feel free to explore them in your applications.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
