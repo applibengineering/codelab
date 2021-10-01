@@ -21,15 +21,21 @@
 </head>
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
+  <google-codelab codelab-gaid="UA-52746336-1"
                   id="hmos-permissions"
                   title="HarmonyOS-Permissions"
                   environment="web"
-                  feedback-link="">
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
     
-      <google-codelab-step label="Overview" duration="1">
-        <p>If an application needs to access data of the system or other applications or calls a system capability to implement specific functions such as making phone calls, the system and the related applications should provide the required interfaces. To ensure security, the application permission mechanism is then used to impose restrictions on these interfaces. Application permission enable an application to access and perform designated operations on the designated object. At the application layer , permissions must be explicitly defined and user-authorized to standardized application behavior and permission authorization.</p>
-<p>This tutorial will help you understand how developer can make sure the applications request the permissions dynamically from the user.</p>
+      <google-codelab-step label="Welcome!" duration="1">
+        <p class="image-container"><img alt="applibgrouplogo" src="img\\bbbab687c9ca3d4f.jpeg"></p>
+<p><strong>Last Updated:</strong> 2021-10-01</p>
+<h2 is-upgraded>Overview</h2>
+<p>If an application needs to access data of the system or other applications or calls a system capability to implement specific functions such as making phone calls, the system and the related applications should provide the required interfaces. To ensure security, the application permission mechanism is then used to impose restrictions on these interfaces.</p>
+<p>Application permission enable an application to access and perform designated operations on the designated object. At the application layer, permissions must be explicitly defined and user-authorized to standardized application behavior and permission authorization.</p>
+<p>This codelab will help you understand how you can make sure the applications request the permissions dynamically from the user.</p>
+<h2 is-upgraded>What you must know already</h2>
+<p>This codelab is written for programmers and assumes that you know the Java programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with Java.</p>
 <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>To build a HarmonyOS application that performs a permission request dynamically to the user and based on the user&#39;s response on the permission request the application must respond accordingly.</p>
 
@@ -49,7 +55,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="App Overview" duration="2">
-        <p>The app demonstrates how to build an app that requests the permissions from the user dynamically. To understand this concept, we&#39;ll develop an application that gives a count of the images in the device. Before, querying the user storage to check for the number of images, this app will make sure the required permission i.e. ohos.permission.READ_USER_STORAGE is granted by the user. Only if the permission is granted, the count of images in the device will be displayed. This application will help you learn</p>
+        <p>The app demonstrates how to build an app that requests the permissions from the user dynamically. To understand this concept, we&#39;ll develop an application that gives a count of the images in the device. Before querying the user storage to check for the number of images, this app will make sure the required permission i.e. ohos.permission.READ_USER_STORAGE is granted by the user. Only if the permission is granted, the count of images in the device will be displayed. This application will help you learn</p>
 <ol type="1">
 <li>How to configure the required permission in config.json</li>
 <li>How you can check if the permission is already granted by the user</li>
@@ -61,8 +67,9 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Task 1: Configure the READ_USER_STORAGE permission in config.json" duration="1">
-        <p>Declare the required permission i.e. ohos.permission.READ_USER_STORAGE in the config.json file. Since we will be wrtiting our code within entry.hap, the permission must be added in the config.json of entry module as shown below: <img alt="snap1" src="img\\9d4100f4b2cfa5b4.PNG"></p>
+      <google-codelab-step label="Task 1: Configure the permission in config.json" duration="1">
+        <p>Declare the required permission i.e. ohos.permission.READ_USER_STORAGE in the config.json file. Since we will be wrtiting our code within entry.hap, the permission must be added in the config.json of entry module as shown below:</p>
+<p class="image-container"><img alt="snap1" src="img\\9d4100f4b2cfa5b4.PNG"></p>
 
 
       </google-codelab-step>
@@ -97,9 +104,9 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Task 3: Create a slice for the ability_main.xml and initialize the views and set listeners" duration="3">
-        <p>Create a slice MainAbilitySlice.java for the main page i.e ability_main.xml. After creating the slice, initialize the button present in the layout and also set a click listener to the button. On click of the any of the button, make sure loadImageCount() is invoked.</p>
-<p>PS: loadImageCount() implementation will be implemented as of now. We will implement this method in the upcoming tasks</p>
+      <google-codelab-step label="Task 3: Create a slice and initialize the views and set listeners" duration="3">
+        <p>Create a slice MainAbilitySlice.java for the main page i.e ability_main.xml. After creating the slice, initialize the button present in the layout and also set a click listener to the button. On click of the button, make sure loadImageCount() is invoked.</p>
+<p>PS: loadImageCount() implementation will be empty as of now. We will implement this method in the next task</p>
 <pre><code language="language-java" class="language-java">public class MainAbilitySlice extends AbilitySlice {
     Button load;
     @Override
@@ -126,25 +133,36 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Task 4: loadImageCount() must request the READ_USER_STORAGE permission dynamically from the user." duration="5">
-        <h2 is-upgraded>4.1. Call the ohos.app.Context.verifySelfPermission method to check whether the permission has been granted to the application.</h2>
-<p>If yes, the permission request process is complete as the permission is granted, therefore application can access the storage to query the number of images in the device. If no, go to the next step.</p>
+      <google-codelab-step label="Task 4: loadImageCount() must request the permission dynamically." duration="5">
+        <h2 is-upgraded>4.1. Call ohos.app.Context.verifySelfPermission()</h2>
+<p>Call ohos.app.Context.verifySelfPermission() method to check whether the permission has been granted to the application.</p>
+<ul>
+<li>If yes, the permission request process is complete as the permission is granted, therefore application can access the storage to query the number of images in the device.</li>
+<li>If no, go to the next step.</li>
+</ul>
 <pre><code language="language-java" class="language-java">    if (verifySelfPermission(permission) == IBundleManager.PERMISSION_GRANTED) {
         queryUserStorage(this);
         return;
     }
 </code></pre>
-<h2 is-upgraded>4.2. Call the canRequestPermission method to check whether the permission can be dynamically requested.</h2>
-<p>If false, permission authorization has been permanently disabled by the user or system. In this case, you can end the permission request process. If true, call the requestPermissionFromUser method to dynamically request permissions.</p>
+<h2 is-upgraded>4.2. Call canRequestPermission() &amp; requestPermissionsFromUser()</h2>
+<p>Call &#34;canRequestPermission()&#34; method to check whether the permission can be dynamically requested</p>
+<ul>
+<li>If false, permission authorization has been permanently disabled by the user or system. In this case, you can end the permission request process.</li>
+<li>If true, call the requestPermissionFromUser() method to dynamically request permissions.</li>
+</ul>
 <pre><code language="language-java" class="language-java">    if (!canRequestPermission(permission)) {
         new ToastDialog(this).setText(&#34;Cannot request the permission&#34;).show();
         return;
     }
     requestPermissionsFromUser(new String[]{permission}, reqCode);
 </code></pre>
-<h3 is-upgraded>&#34;requestPermissionsFromUser()&#34; will inflate a permission dialog to request the permission dynamically from the user.</h3>
+<ul>
+<li>&#34;requestPermissionsFromUser()&#34; will inflate a permission dialog to request the permission dynamically from the user.</li>
+</ul>
 <p class="image-container"><img alt="permission_dialog" src="img\\e34e7c454e22864f.png"></p>
-<h2 is-upgraded>4.3. Access the storage to query the number of images present in the device</h2>
+<h2 is-upgraded>4.3. Query the number of images present in the device</h2>
+<p>By using AVStorage and DataAbilityHelper APIs, we can query the number of images in the device storage.</p>
 <pre><code language="language-java" class="language-java">    public static void queryUserStorage(Context context) {
         DataAbilityHelper helper = DataAbilityHelper.creator(context);
         try {
@@ -193,7 +211,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Task 5: Check the permission grant result from the user." duration="5">
-        <h2 is-upgraded>Override onRequestPermissionsFromUserResult in MainAbility.java to receive the permission grant result.</h2>
+        <h2 is-upgraded>Override onRequestPermissionsFromUserResult() in MainAbility.java</h2>
 <p>After user responds to the permission dialog visible on the window, the response from the user can be checked from onRequestPermissionsFromUserResult(int requestCode, String[] permissions, int[] grantResults) in MainAbility.java.</p>
 <pre><code language="language-java" class="language-java">    @Override
     public void onRequestPermissionsFromUserResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -206,9 +224,13 @@
         }
     }
 </code></pre>
-<h3 is-upgraded>-&gt; If permission is granted by the user, then application can access the storage to query the number of images in the device.</h3>
+<ul>
+<li>If permission is granted by the user, then application can access the storage to query the number of images in the device.</li>
+</ul>
 <p class="image-container"><img alt="permission_accept" src="img\\485523e01dfc83aa.png"></p>
-<h3 is-upgraded>-&gt; If permission is denied by the user, then user will be notified as &#34;Permission denied&#34;</h3>
+<ul>
+<li>If permission is denied by the user, then user will be notified as &#34;Permission denied&#34;</li>
+</ul>
 <p class="image-container"><img alt="permission_denied" src="img\\6c2c3cea291ac7ca.png"></p>
 
 
@@ -216,15 +238,7 @@
     
       <google-codelab-step label="Run the project and install the hap in the simulator" duration="2">
         <p>Congratulations..!! You have completed all the tasks required for this application.</p>
-<p>Once the code is ready, you can build the project and check the functionality of the application in the simulator. Screenshots of the application are below</p>
-<ul>
-<li>When user accepts the permission request and has 5 images in the device.</li>
-</ul>
-<p class="image-container"><img alt="accept_permission" src="img\\9d4100f4b2cfa5b4.PNG"></p>
-<ul>
-<li>When user denies the permission request</li>
-</ul>
-<p class="image-container"><img alt="deny_permission" src="img\\9d4100f4b2cfa5b4.PNG"></p>
+<p>Once the code is ready, you can build the project and check the functionality of the application in the simulator.</p>
 
 
       </google-codelab-step>
