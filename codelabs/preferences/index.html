@@ -1,0 +1,277 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Preferences</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="preferences"
+                  title="Preferences"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Welcome!" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\bbbab687c9ca3d4f.jpeg"></p>
+<p><strong>Last Updated:</strong> 2021-10-05</p>
+<h2 is-upgraded><strong>Introduction</strong></h2>
+<p>Preferences allow you to store small amounts of primitive data as key/value pairs in a file on the device. To get a handle to a preference file, and to read, write, and manage preference data, use the <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/preferences-0000001054358793" target="_blank"><strong>Preferences</strong></a> class. The HarmonyOS framework manages the Preferences file itself. The file is accessible to all the components of your app, but it is not accessible to other apps.</p>
+<ul>
+<li>Preferences persist across user sessions. Preferences persist even if your app stops and restarts, or if the device reboots.</li>
+</ul>
+<p>Use Preferences only when you need to save a small amount of data as simple key/value pairs. To manage larger amounts of persistent app data, use a storage method such as the SQL database.</p>
+<h2 is-upgraded><strong>What you must know already</strong></h2>
+<p>This codelab is written for programmers and assumes that you know the Java programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with Java.</p>
+<p>You should be familiar with:</p>
+<ul>
+<li>Creating, building, and running apps in DevEco Studio.</li>
+<li>Designing layouts with buttons and text components.</li>
+</ul>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to identify what Preferences are.</li>
+<li>How to create a Preferences file for your app.</li>
+<li>How to save data to Preferences, and read those Preferences back again.</li>
+<li>How to clear the data in the Preferences.</li>
+</ul>
+<h2 is-upgraded><strong>What you&#39;ll do</strong></h2>
+<ul>
+<li>Update an app so it can save, retrieve, and reset Preferences.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App Overview" duration="5">
+        <p>The HelloPreferences is an app that  includes buttons to increment the number, to change the background color, and to reset both the number and color to their defaults.</p>
+<p class="image-container"><img style="width: 274.43px" src="img\\8cd615267e89c400.png"></p>
+<p>You start with the starter app and add preferences to the MainAbilitySlice code. You also add a reset button that sets both the count and the background color to the default, and clears the preferences file.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Explore HelloPreferences" duration="3">
+        <p>The complete starter app project for this practical is available at <a href="https://github.com/applibgroup/applibgroup/tree/main/CodeLabs/HelloPreferences_Starter" target="_blank">HelloPreferences-Starter</a>. In this task you load the project into DevEco Studio and explore some of the app&#39;s key features.</p>
+<h2 is-upgraded><strong>1.1 Open and run the HelloPreferences project</strong></h2>
+<ol type="1" start="1">
+<li>Download the <a href="https://github.com/applibgroup/applibgroup/tree/main/CodeLabs/HelloPreferences_Starter" target="_blank">HelloPreferences-Starter</a> code.</li>
+<li>Open the project in DevEco Studio, and build and run the app.</li>
+</ol>
+<p>Test the app by trying these steps:</p>
+<ol type="1" start="1">
+<li>Click the Count button to increment the number in the main text component.</li>
+<li>Click any of the color buttons to change the background color of the main text component.</li>
+<li>Click the Reset button to set the color and count back to the defaults.</li>
+</ol>
+<p>Now test what happens when you quit and restart the app:</p>
+<ol type="1" start="1">
+<li>Force-quit the app using one of these methods:</li>
+</ol>
+<ul>
+<li>In DevEco Studio, select<strong> Run &gt; Stop ‘entry&#39;</strong> or click the Stop Icon <img alt="Stop Icon " style="width: 25.00px" src="img\\9d28d2093c8d49c5.png"> in the toolbar.</li>
+<li>On the device, press the Recents button (the square button in the lower right corner). Swipe the Preferences app card to quit the app. If you quit the app in this manner, wait a few seconds before starting it again so the system can clean up.</li>
+</ul>
+<ol type="1" start="2">
+<li>Re-run the app. The app restarts with the default appearance—the count is 0, and the background color is grey.</li>
+</ol>
+<h2 is-upgraded><strong>1.2 Explore the MainAbilitySlice code</strong></h2>
+<ol type="1" start="1">
+<li>Open MainAbilitySlice.</li>
+<li>Examine the code.</li>
+</ol>
+<p>Note these things:</p>
+<ul>
+<li>The count (<strong>mCount</strong>) is defined as an integer. The <strong>countUp()</strong> onClick method increments this value and updates the main <strong>Text </strong>component.</li>
+<li>The color (<strong>mColor</strong>) is also an integer that is initially defined as red in the colors.json resource file.</li>
+<li>The <strong>changeBackground()</strong> onClick method gets the background element of the button that was clicked, and then sets the main text component to that element.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Save and restore data to Preferences file." duration="3">
+        <p>In this task you save the state of the app to a preferences file, and read that data back in when the app is restarted.</p>
+<h2 is-upgraded><strong>1.1 initialize the Preferences</strong></h2>
+<ol type="1" start="1">
+<li>Add member variables to the <strong>MainAbilitySlice </strong>class to hold the name of the preferences file, and a reference to a <strong>Preferences </strong>object.</li>
+</ol>
+<pre><code>private Preferences preferences;
+private final String sharedPrefFile = &#34;com.example.hellopreferences&#34;;</code></pre>
+<p>You can name your preferences file anything you want to, but conventionally it has the same name as the package name of your app.</p>
+<ol type="1" start="2">
+<li>In the <strong>onStart()</strong> method, initialize the preferences. Insert this code </li>
+</ol>
+<pre><code>this.preferences = new DatabaseHelper(this).getPreferences(sharedPrefFile);</code></pre>
+<p>The <strong>getPreferences()</strong> method (from the AbilitySlice <strong>Context</strong>) opens the file at the given filename (<strong>sharedPrefFile</strong>)</p>
+<p>Solution code for <strong>MainAbilitySlice.java</strong>, partial:</p>
+<pre><code>public class MainAbilitySlice extends AbilitySlice {
+
+   // Key for current count
+   private final String COUNT_KEY = &#34;count&#34;;
+   // Key for current color
+   private final String COLOR_KEY = &#34;color&#34;;
+
+   // Current count
+   private int mCount = 0;
+   // Current background color
+   private int mColor;
+   // Text view to display both count and color
+   private Text mShowCountTextView;
+
+   private Preferences preferences;
+   private final String sharedPrefFile = &#34;com.example.hellopreferences&#34;;
+
+
+   @Override
+   public void onStart(Intent intent) {
+       super.onStart(intent);
+       super.setUIContent(ResourceTable.Layout_ability_main);
+
+       this.preferences = new DatabaseHelper(this).getPreferences(sharedPrefFile);
+
+       //...
+
+   }
+
+}
+</code></pre>
+<h2 is-upgraded><strong>1.2 save Preferences in onInactive()</strong></h2>
+<p>Saving preferences is a lot like saving the instance state – both operations set aside the data to a Pacmap object as a key/value pair. </p>
+<p> Use the <strong>putInt()</strong> method to put both the <strong>mCount </strong>and <strong>mColor </strong>integers into the preferences with the appropriate keys. Add this line to <strong>onInactive()</strong> after the call to <strong>super.onInactive()</strong>. Call <strong>flushSync() </strong>to save the preferences:</p>
+<p>Solution code for <strong>MainAbilitySlice onInactive()</strong> method:</p>
+<pre><code>@Override
+public void onInactive() {
+   super.onInactive();
+   preferences.putInt(COUNT_KEY, mCount);
+   preferences.putInt(COLOR_KEY, mColor);
+   preferences.flushSync();
+}</code></pre>
+<h2 is-upgraded><strong>1.2 restore Preferences in onActive()</strong></h2>
+<p>Every time <strong>onActive()</strong> is called – when the app starts – the preferences are used to restore the state of the components.</p>
+<ol type="1" start="1">
+<li>In the <strong>onActive() </strong>method, get the count from the preferences with the <strong>COUNT_KEY </strong>key and assign it to the <strong>mCount </strong>variable.</li>
+</ol>
+<pre><code>mCount = preferences.getInt(COUNT_KEY, 0);</code></pre>
+<p>Note that the <strong>getInt()</strong> method takes two arguments: one for the key, and the other for the default value if the key cannot be found. In this case the default value is 0, which is the same as the initial value of <strong>mCount</strong>.</p>
+<ol type="1" start="2">
+<li>Update the value of the main <strong>Text </strong>component with the new count.</li>
+</ol>
+<pre><code>mShowCountTextView.setText(String.format(&#34;%s&#34;, mCount));</code></pre>
+<ol type="1" start="3">
+<li>Get the color from the preferences with the <strong>COLOR_KEY </strong>key and assign it to the <strong>mColor </strong>variable.</li>
+</ol>
+<pre><code>mColor = preferences.getInt(COLOR_KEY, mColor);</code></pre>
+<p>As before, the second argument to <strong>getInt()</strong> is the default value to use in case the key doesn&#39;t exist in the preferences. In this case you can just reuse the value of <strong>mColor</strong>, which was just initialized to red further up in the method.</p>
+<ol type="1" start="4">
+<li>Update the background color of the main text component.</li>
+</ol>
+<pre><code>ShapeElement shapeElement = new ShapeElement();
+shapeElement.setRgbColor(RgbColor.fromArgbInt(mColor));
+mShowCountTextView.setBackground(shapeElement);</code></pre>
+<ol type="1" start="5">
+<li>Run the app. Click the Count button and change the background color to update the preferences.</li>
+<li>Force-quit the app using one of these methods:</li>
+<li>In Android Studio, select<strong> Run &gt; Stop ‘entry.&#39;</strong></li>
+<li>On the device, press the Recents button (the square button in the lower right corner). Swipe the HelloPreferences app card to quit the app.</li>
+<li>Re-run the app. The app restarts and loads the preferences, maintaining the state.</li>
+</ol>
+<p>Solution code for <strong>MainAbilitySlice onActive()</strong> method:</p>
+<pre><code>@Override
+public void onActive() {
+   super.onActive();
+
+   mCount = preferences.getInt(COUNT_KEY, 0);
+   mShowCountTextView.setText(String.format(&#34;%s&#34;, mCount));
+
+   mColor = preferences.getInt(COLOR_KEY, mColor);
+   ShapeElement shapeElement = new ShapeElement();
+   shapeElement.setRgbColor(RgbColor.fromArgbInt(mColor));
+   mShowCountTextView.setBackground(shapeElement);
+
+}</code></pre>
+<h2 is-upgraded><strong>1.2 Reset preferences in the reset() click handler</strong></h2>
+<p>The reset button in the starter app resets both the count and color for the abilityslice to their default values. Because the preferences hold the state of the abilityslice, it&#39;s important to also clear the preferences at the same time.</p>
+<ol type="1" start="1">
+<li>In the <strong>reset()</strong>  method, after the color and count are reset, Delete all the preferences:</li>
+</ol>
+<pre><code>preferences.clear();
+preferences.flush();</code></pre>
+<ol type="1" start="2">
+<li>Solution code for the <strong>reset()</strong> method:</li>
+</ol>
+<pre><code>public void reset(Component component) {
+   // Reset count
+   mCount = 0;
+   mShowCountTextView.setText(String.format(&#34;%s&#34;, mCount));
+
+   // Reset color
+   mColor = getColor(ResourceTable.Color_red);
+   ShapeElement shapeElement = new ShapeElement();
+   shapeElement.setRgbColor(RgbColor.fromArgbInt(mColor));
+   mShowCountTextView.setBackground(shapeElement);
+
+   // Clear preferences
+   preferences.clear();
+   preferences.flush();
+
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solution code" duration="3">
+        <p>DevEco Studio project: <a href="https://github.com/applibgroup/applibgroup/tree/main/CodeLabs/HelloPreferences" target="_blank">HelloPreferences</a> </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Summary" duration="2">
+        <ul>
+<li>The <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/preferences-0000001054358793" target="_blank"><strong>Preferences</strong></a> class allows an app to store small amounts of primitive data as key-value pairs.</li>
+<li>Preferences persist across different user sessions of the same app.</li>
+<li>Use the various <strong>&#34;put&#34; </strong>methods in a <strong>Preferences </strong>object, such as <strong>putInt()</strong> or <strong>putString()</strong>, to put data into the preferences with a key and a value.</li>
+<li>Use the various<strong> &#34;get&#34;</strong> methods in a <strong>Preferences </strong>object, such as <strong>getInt() </strong>or <strong>getString()</strong>, to get data out of the preferences with a key.</li>
+<li>Use the <strong>clear()</strong> method in a <strong>Preferences </strong>object to remove all the data stored in the preferences.</li>
+<li>Use the <strong>flushSync()</strong> method in a <strong>Preferences </strong>object to save the changes to the preferences file.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="0">
+        <p>Congratulations, you have learnt</p>
+<ul>
+<li>How to Update an app so that  it can save, retrieve, and reset Preferences.</li>
+</ul>
+<h2 is-upgraded><strong>What&#39;s next?</strong></h2>
+<p>Check out some of these codelabs...</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
