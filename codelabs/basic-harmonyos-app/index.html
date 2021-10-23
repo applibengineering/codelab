@@ -1,0 +1,448 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Build Basic HarmonyOS App in Java</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="basic-harmonyos-app"
+                  title="Build Basic HarmonyOS App in Java"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Welcome!" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\bbbab687c9ca3d4f.jpeg"></p>
+<p><strong>Last Updated:</strong> 2021-09-14</p>
+<h2 is-upgraded><strong>Build Basic HarmonyOS App in Java</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\607f2c592accec00.png"></p>
+<p>In this codelab, you&#39;ll learn how to build and run your first HarmonyOS app in the Java programming language. </p>
+<h2 is-upgraded><strong>What you must know already</strong></h2>
+<p>This codelab is written for programmers and assumes that you know the Java programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with Java.</p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to use DevEco Studio to build your app.</li>
+<li>How to run your app in the emulator.</li>
+<li>How to add interactive text components.</li>
+<li>How to display a second screen when a text component is pressed.</li>
+</ul>
+<h2 is-upgraded><strong>Use DevEco</strong> <strong>Studio and Java to write HarmonyOS apps</strong></h2>
+<p>You write HarmonyOS apps in the Java programming language using an IDE called DevEco Studio. Based on JetBrains&#39; IntelliJ IDEA software, DevEco Studio is an IDE designed specifically for HarmonyOS development.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install DevEco Studio" duration="5">
+        <p>You can download DevEco Studio from the  <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank">DevEco Studio</a> page.</p>
+<p>DevEco Studio provides a complete IDE, including an advanced code editor and app templates. It also contains tools for development, debugging, testing, and performance that make it faster and easier to develop apps. You can use DevEco Studio to test your apps with a large range of preconfigured emulators.</p>
+<aside class="special"><p><strong>Note:</strong> DevEco Studio is continually being improved. For the latest information on system requirements and installation instructions, see the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank"><strong>DevEco Studio download page</strong></a><strong>.</strong></p>
+</aside>
+<p>DevEco Studio is available for computers running Windows and for Macs running macOS. The OpenJDK (Java Development Kit) is bundled with DevEco Studio.</p>
+<p>The installation is similar for all platforms. Any differences are noted below.</p>
+<ol type="1" start="1">
+<li>Navigate to the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank">DevEco Studio download page</a> and follow the instructions to download and install DevEco Studio.</li>
+<li>Accept the default configurations for all steps, and ensure that all components are selected for installation.</li>
+<li>After the install is complete, the setup wizard downloads and installs additional components, including the HarmonyOS SDK. Be patient, because this process might take some time, depending on your internet speed.</li>
+<li>When the installation completes, DevEco Studio starts, and you are ready to create your first project.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Create your first project" duration="3">
+        <p>In this step, you will create a new HarmonyOS project for your first app. This simple app displays the string &#34;Hello World&#34; on the screen of a HarmonyOS virtual device.</p>
+<p>Here&#39;s what the finished app will look like:</p>
+<p class="image-container"><img style="width: 260.50px" src="img\\b5ecd3e597b29bc3.png"></p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to create a project in DevEco Studio.</li>
+<li>How to run your app on the emulator.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Create a new project</strong></h2>
+<ol type="1" start="1">
+<li>Open DevEco Studio.</li>
+<li>In the <strong>Welcome to DevEco Studio</strong> dialog, click <strong>Create HarmonyOS Project</strong>.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\585c5e65f9e13642.png"></p>
+<ol type="1" start="3">
+<li>Select <strong>Empty Ability(Java) </strong>and click <strong>Next.</strong></li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\2679ec95c1412117.png"></p>
+<ol type="1" start="4">
+<li>Give your application a name such as <strong>Basic App</strong>.</li>
+<li>Choose <strong>Project Type</strong> as <strong>Application</strong>.</li>
+<li>Set <strong>Compatible API Version</strong>.</li>
+<li>Select the <strong>Device Type</strong>.</li>
+<li>Click <strong>Finish</strong>.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\ccf5324e9513d158.png"></p>
+<p>After these steps, DevEco Studio:</p>
+<ul>
+<li>Creates a folder for your DevEco Studio project called <strong>MyFirstApp</strong>.</li>
+<li>Builds your project (this may take a few moments). DevEco Studio uses <a href="https://gradle.org/" target="_blank"><strong>Gradle</strong></a> as its build system. You can follow the build progress at the bottom of the DevEco Studio window.</li>
+<li>Opens the code editor showing your project.</li>
+</ul>
+<h2 is-upgraded><strong>Step 2: Explore the project structure and layout</strong></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\19da30d76f3aab85.jpeg"></p>
+<p>Based on you selecting the <strong>Empty Ability(Java)</strong> template for your project, DevEcoStudio has set up a number of files for you. You can look at the hierarchy of the files for your app in multiple ways, one is in <strong>Project </strong>view. <strong>Project </strong>view shows your files and folders structured in a way that is convenient for working with a HarmonyOS project. (This does not always match the file hierarchy! To see the file hierarchy, choose the <strong>Project files</strong> view by clicking (<strong>1</strong>).)</p>
+<ol type="1" start="1">
+<li>Double-click the<strong> BasicApp(3)</strong> folder to expand the hierarchy of app files. (See (<strong>3</strong>) in the screenshot.)</li>
+<li>If you click <strong>Project (2)</strong>, you can hide or show the <strong>Project </strong>view. You might need to select <strong>View &gt; Tool Windows </strong>to see this option.</li>
+<li>The current <strong>Project </strong>view selection (<strong>1</strong>) is <strong>Project &gt; Project</strong>.</li>
+</ol>
+<p>In the<strong> Project &gt; Project</strong> view you see the <strong>entry </strong>folder.</p>
+<ol type="1" start="1">
+<li>Expand the <strong>entry </strong>folder.</li>
+<li>You see <strong>src &gt; main</strong> folder, expand the <strong>main </strong>folder, you will see :<strong> java, resources</strong> and <strong>config.json</strong></li>
+</ol>
+<p>This folder contains <strong>config.json</strong>. This file describes all the components of your HarmonyOS app and is read by the HarmonyOS runtime system when your app is executed. </p>
+<ol type="1" start="3">
+<li>Expand the <strong>java </strong>folder. All your Java language files are organized here. The <strong>java </strong>folder contains:</li>
+</ol>
+<p><strong>com.example.basicapp:</strong> This folder contains the Java source code files for your app.</p>
+<ol type="1" start="4">
+<li>Expand the <strong>resources </strong>folder. This folder contains all the resources for your app, including images, layout files, strings, icons, and styling. It includes these subfolders:</li>
+</ol>
+<p><strong>media:</strong> All your app&#39;s images will be stored in this folder.</p>
+<p><strong>layout: </strong>This folder contains the UI layout files for your <strong>Ability </strong>&amp; <strong>AbilitySlices</strong>. </p>
+<p><strong>graphic:</strong> This folder contains the background elements and selector files.</p>
+<p><strong>element:</strong> This folder contains resources, such as <strong>strings </strong>and <strong>colors</strong>, used in your app.</p>
+<ol type="1" start="5">
+<li>You also see <strong>src &gt; ohosTest </strong>folder, expand the <strong>ohosTest </strong>folder</li>
+</ol>
+<p><strong>com.example.basicapp (ohosTest):</strong> This folder is where you would put your framework tests, which are tests that run on an HarmonyOS device.</p>
+<p><strong>com.example.basicapp (test):</strong> This folder is where you would put your unit tests. Unit tests don&#39;t need a HarmonyOS device to run. It starts out with a skeleton unit test file. </p>
+<p><strong>Step 3: Run your app on your new emulator</strong></p>
+<p>In this task, you will use the DevEco Device Manager to create a virtual device (or emulator).</p>
+<ol type="1" start="1">
+<li>In DevEco Studio, select <strong>Tools &gt; Device Manager</strong>.</li>
+</ol>
+<p class="image-container"><img style="width: 331.00px" src="img\\713a33b3f181ace3.png"></p>
+<ol type="1" start="2">
+<li>After Logging in using developer ID, you will be able to access a list of available Virtual Devices.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\80f82f905a1f07a5.png"></p>
+<ol type="1" start="3">
+<li>Select any one of device and click run icon <img style="width: 22.80px" src="img\\fda531d36d555e36.png"> to start the device. </li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\84d70181bca0f48e.png"></p>
+<ol type="1" start="4">
+<li>In DevEco Studio, select<strong> Run &gt; Run ‘entry&#39; </strong>or click the <strong>Run </strong>icon in the toolbar. <img alt="609c3e4473493202.png" style="width: 24.00px" src="img\\609c3e4473493202.png"> The icon will change when your app is already running. <img alt="edee73c1aed2b57e.png" style="width: 22.00px" src="img\\edee73c1aed2b57e.png"></li>
+<li>Once your app builds and the emulator is ready, DevEco Studio uploads the app to the emulator and runs it. You should see your app as shown in the following screenshot.</li>
+</ol>
+<p class="image-container"><img style="width: 260.50px" src="img\\b5ecd3e597b29bc3.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Explore the layout editor" duration="3">
+        <p>Generally, each screen in your Harmony app is associated with one or more <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/abilityslice-0000001054678680" target="_blank"><strong><em>AbilitySlices</em></strong></a>. The single screen displaying &#34;Navigate to Second Screen!&#34; is created by one AbilitySlice, called MainAbilitySlice. This was generated for you when you created your new project. Each visible AbilitySlice in an Harmony app has a layout that defines the user interface for the AbilitySlice. DevEco Studio has a layout editor where you can create and define layouts.</p>
+<p>Layouts are defined in <a href="https://en.wikipedia.org/wiki/XML" target="_blank">XML</a>. The layout editor lets you define and modify your layout either by coding XML or by using the interactive visual editor.</p>
+<p>Every element in a layout is a Component. In this task, you will learn how to change the properties of components.</p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to use the layout editor.</li>
+<li>How to set property values, how to add string resources.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Open the layout editor</strong></h2>
+<ol type="1" start="1">
+<li>Find and open the <strong>layout </strong>folder (<strong>entry &gt; src &gt; main &gt; resources &gt; layout</strong>) on the left side in the <strong>Project panel(1).</strong></li>
+<li>Double-click ability_main.xml.</li>
+<li>In the center is the  <strong>Layout Editor(2)</strong> , where you can add XML code for Components and Layouts and their attributes.</li>
+<li>Right to Layout Editor is the <strong>Previewer (3)</strong>, which shows a visual representation of what the contents of the file will look like when compiled into an HarmonyOS app. You can view the visual representation, the XML code, or both.</li>
+<li>Top Right corner of Previewer is a <strong>Component Tree (4)</strong> showing the views currently in this file, and how they are arranged in relation to each other.</li>
+<li>Bottom right corner of the Previewer is <strong>Attributes Panel (5)</strong>,You&#39;ll learn about that later.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\9600084108083ef8.jpeg"></p>
+<h2 is-upgraded><strong>Step 2: Explore Component Tree</strong></h2>
+<ol type="1" start="1">
+<li>In ability_main.xml, look at the <strong>Component Tree</strong>.</li>
+</ol>
+<p class="image-container"><img style="width: 325.00px" src="img\\4f70bbb98fc077b.png"></p>
+<ol type="1" start="2">
+<li>This panel shows the <strong><em>component hierarchy</em></strong> in your layout, that is, how the views are arranged in relation to each other.</li>
+<li>If it&#39;s not showing you can open Component Tree by clicking <strong>Inspector </strong>from <strong>Previewer </strong>Window.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\4f4d43d51928fb0a.png"></p>
+<h2 is-upgraded><strong>Step 3: Explore view hierarchies</strong></h2>
+<ol type="1" start="1">
+<li>In the Component Tree, notice that the root of the component hierarchy is a <strong>DirectionalLayout </strong>component. Every layout must have a root component that contains all the other components. The root component is always a <strong><em>component container</em></strong>, which is a component that contains other components. A <strong>DirectionalLayout </strong>is one example of a component container.</li>
+<li> Notice that the <strong>DirectionalLayout </strong>contains a <strong>Text </strong>component, called <strong>text_helloworld</strong>.</li>
+</ol>
+<p class="image-container"><img style="width: 325.00px" src="img\\4f70bbb98fc077b.png"></p>
+<ol type="1" start="3">
+<li>In the XML code, notice that the root element is <strong>&lt;DirectionalLayout &gt;</strong>. The root element contains a <strong>&lt;Text&gt;</strong> element.</li>
+</ol>
+<pre><code>&lt;DirectionalLayout
+  ... &gt;
+
+   &lt;Text
+      ...  /&gt;
+
+&lt;/DirectionalLayout&gt;</code></pre>
+<h2 is-upgraded><strong>Step 4: Change property values, add String resources</strong></h2>
+<ol type="1" start="1">
+<li>In the code editor, examine the properties in the <strong>Text </strong>element.</li>
+</ol>
+<pre><code>&lt;Text
+   ohos:id=&#34;$+id:text_helloworld&#34;
+   ohos:height=&#34;match_content&#34;
+   ohos:width=&#34;match_content&#34;
+   ohos:text=&#34;$string:mainability_HelloWorld&#34;
+   ...
+   /&gt;</code></pre>
+<ol type="1" start="2">
+<li>Click on the string in the text property, and you&#39;ll notice it refers to a string resource, <strong>mainability_HelloWorld</strong>.</li>
+<li>Right-click on the property and click <strong>Go To &gt; Declaration or Usages.</strong></li>
+</ol>
+<p><strong>resources &gt; base &gt; element &gt; strings.json</strong> opens with the string highlighted.</p>
+<pre><code>{
+ &#34;name&#34;: &#34;mainability_HelloWorld&#34;,
+ &#34;value&#34;: &#34;Hello World&#34;
+}</code></pre>
+<ol type="1" start="4">
+<li>You should be able to change the existing String property value to another String. You will also be able to add String resources for other component text attribute.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Update the appearance of Text component" duration="3">
+        <p>Your app&#39;s layout is now basically complete, but its appearance can be improved with a few small changes.</p>
+<h2 is-upgraded><strong>Step 1: Add new color resources</strong></h2>
+<ol type="1" start="1">
+<li>In <strong>resources &gt; base &gt; element &gt; colors.json </strong>, Add a new color named <strong>screenBackground</strong>. Use the value <strong>#D3D3D3</strong>, which is a lighter shade in the gray palette</li>
+<li>Add a new color named <strong>textBackground</strong>. Use the value <strong>#FFFFFF</strong>, which is white.</li>
+</ol>
+<pre><code>{
+ &#34;color&#34;: [
+   {
+     &#34;name&#34;: &#34;screenBackground&#34;,
+     &#34;value&#34; : &#34;#D3D3D3&#34;
+   },
+   {
+     &#34;name&#34;: &#34;textBackground&#34;,
+     &#34;value&#34; : &#34;#FFFFFFFF&#34;
+   }
+ ]
+}</code></pre>
+<h2 is-upgraded><strong>Step 2: Add  background elements for the Text and DirectionalLayout</strong></h2>
+<ol type="1" start="1">
+<li>1In <strong>resources &gt; base &gt; graphic, </strong>create <strong>screen_background.xml</strong> and set this xml as background element for DirectionalLayout.</li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;
+&lt;shape xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+      ohos:shape=&#34;rectangle&#34;&gt;
+   &lt;solid
+       ohos:color=&#34;$color:screenBackground&#34;/&gt;
+&lt;/shape&gt;</code></pre>
+<ol type="1" start="2">
+<li>Create <strong>text_background.xml</strong> and set this xml as background element for the Text component.</li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; ?&gt;
+&lt;shape xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+      ohos:shape=&#34;rectangle&#34;&gt;
+   &lt;solid
+       ohos:color=&#34;$color:textBackground&#34;/&gt;
+&lt;/shape&gt;</code></pre>
+<ol type="1" start="3">
+<li>In the ability_main.xml layout , add background_element attribute for DirectionalLayout and Text.</li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+   xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+   ohos:height=&#34;match_parent&#34;
+   ohos:width=&#34;match_parent&#34;
+   ohos:background_element=&#34;$color:screenBackground&#34;
+   ...&gt;
+
+   &lt;Text
+       ohos:id=&#34;$+id:text_helloworld&#34;
+       ohos:height=&#34;match_content&#34;
+       ohos:width=&#34;match_content&#34;
+       ohos:background_element=&#34;$graphic:text_background&#34;
+       ...
+       /&gt;
+
+&lt;/DirectionalLayout&gt;
+</code></pre>
+<h2 is-upgraded><strong>Step 3: Update the appearance of the Text component</strong></h2>
+<p>1. Decrease the text size of the <strong>Text </strong>component to 18fp.</p>
+<p>2. Add <strong>Text </strong>Color attribute and change the text from &#34;<strong>Hello World</strong>&#34; to &#34;<strong>Navigate to Second Screen</strong>!&#34;</p>
+<p>3. Add Padding to make text spaced from margins.</p>
+<pre><code>    &lt;Text
+       ...
+       ohos:text=&#34;$string:mainability_navigate&#34;
+       ohos:padding=&#34;10vp&#34;
+       ohos:text_size=&#34;18fp&#34;
+       ohos:text_color=&#34;$color:textColor&#34;
+       /&gt;</code></pre>
+<h2 is-upgraded><strong>Step 4: Run your app</strong></h2>
+<p>If you implemented all the updates, your app will look like the following figure.</p>
+<p class="image-container"><img style="width: 299.50px" src="img\\580f0a73e7f302e6.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Making App Interactive" duration="2">
+        <p>You have added Text to your app&#39;s main screen, but currently the Text component does nothing. In this task, you will make your Text respond when the user presses them.</p>
+<p>On click of Text Component you will navigate to Second Screen.</p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to implement Second Screen.</li>
+<li>How to find a component by its ID.</li>
+<li>How to add click listeners for a component.</li>
+<li>How to Navigate between Slices.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Implement the Second slice</strong></h2>
+<ol type="1" start="1">
+<li>Right click<strong> src &gt; com.example.basicapp.slice </strong>and create <strong>New -&gt;  Java Class</strong> named <strong>SecondAbilitySlice.java</strong> extending <strong>AbilitySlice</strong>,</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\5d519dd76e5fc4a0.png"></p>
+<ol type="1" start="2">
+<li>Right click<strong> resources &gt;  base &gt; layout  </strong>and create <strong>ability_second_slice.xml </strong>to create UI components via xml code,</li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+   xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+   ohos:height=&#34;match_parent&#34;
+   ohos:width=&#34;match_parent&#34;
+   ohos:background_element=&#34;$color:secondScreenBackground&#34;
+   ohos:alignment=&#34;center&#34;
+   ohos:orientation=&#34;vertical&#34;&gt;
+
+   &lt;Text
+       ohos:id=&#34;$+id:text_helloworld&#34;
+       ohos:height=&#34;match_content&#34;
+       ohos:width=&#34;match_content&#34;
+       ohos:background_element=&#34;$graphic:text_background&#34;
+       ohos:layout_alignment=&#34;horizontal_center&#34;
+       ohos:text=&#34;$string:secondability_welcome&#34;
+       ohos:padding=&#34;10vp&#34;
+       ohos:text_size=&#34;18fp&#34;
+       ohos:text_color=&#34;$color:textColor&#34;
+       /&gt;
+
+&lt;/DirectionalLayout&gt;
+</code></pre>
+<ol type="1" start="3">
+<li>Final <strong>colors.json </strong>will have following colors,</li>
+</ol>
+<pre><code>{
+ &#34;color&#34;: [
+   {
+     &#34;name&#34;: &#34;screenBackground&#34;,
+     &#34;value&#34; : &#34;#D3D3D3&#34;
+   },
+   {
+     &#34;name&#34;: &#34;textBackground&#34;,
+     &#34;value&#34; : &#34;#FFFFFFFF&#34;
+   },
+   {
+     &#34;name&#34;: &#34;textColor&#34;,
+     &#34;value&#34; : &#34;#FF0000&#34;
+   },
+   {
+     &#34;name&#34;: &#34;secondScreenBackground&#34;,
+     &#34;value&#34; : &#34;#A9A9A9&#34;
+   }
+ ]
+}</code></pre>
+<ol type="1" start="4">
+<li>Final <strong>string.json </strong>will have following Strings,</li>
+</ol>
+<pre><code>{
+ &#34;string&#34;: [
+   {
+     &#34;name&#34;: &#34;entry_MainAbility&#34;,
+     &#34;value&#34;: &#34;entry_MainAbility&#34;
+   },
+   {
+     &#34;name&#34;: &#34;mainability_description&#34;,
+     &#34;value&#34;: &#34;Java_Empty Ability&#34;
+   },
+   {
+     &#34;name&#34;: &#34;mainability_HelloWorld&#34;,
+     &#34;value&#34;: &#34;Hello World&#34;
+   },
+   {
+     &#34;name&#34;: &#34;mainability_navigate&#34;,
+     &#34;value&#34;: &#34;Navigate to Second Screen!&#34;
+   },
+   {
+     &#34;name&#34;: &#34;secondability_welcome&#34;,
+     &#34;value&#34;: &#34;Welcome to Second Screen!&#34;
+   }
+ ]
+}</code></pre>
+<ol type="1" start="5">
+<li>Atlast you will be overriding <strong>onStart() </strong>lifecycle callback in <strong>SecondAbilitySlice.java</strong> and load the xml via<strong> setUIContent()</strong></li>
+</ol>
+<pre><code>@Override
+public void onStart(Intent intent) {
+   super.onStart(intent);
+   super.setUIContent(ResourceTable.Layout_ability_second_slice);
+}
+</code></pre>
+<h2 is-upgraded><strong>Step 2: Making Text component Interactive</strong></h2>
+<ol type="1" start="1">
+<li>Get back to First screen, Open MainAbilitySlice.java (<strong>src &gt; java &gt; com.example.basicapp.slice &gt; MainAbilitySlice</strong>).</li>
+<li>This class has a method called <strong>onStart()</strong>. This method executes when the AbilitySlice starts.</li>
+<li>The <strong>id</strong> for a component helps you identify that component distinctly from other components. Using the <strong>findComponentByID()</strong> method, your code can find the <code>text_helloworld</code> using its id, <code>ResourceTable.</code><em><code>Id_text_helloworld</code></em>.</li>
+<li>Take a look at <strong>onStart()</strong>. It sets up a click listener for the <code>text_helloworld</code>.</li>
+</ol>
+<pre><code>Text textHelloWorld = (Text) findComponentById(ResourceTable.Id_text_helloworld);
+textHelloWorld.setClickedListener(new Component.ClickedListener() {
+   @Override
+   public void onClick(Component component) {
+       present(new SecondAbilitySlice(), new Intent());
+   }
+});</code></pre>
+<p>Here is what this code does:</p>
+<ul>
+<li>Use the <strong>findComponentByID()</strong> method with the id of the desired component as an argument, then set a click listener on that component.</li>
+<li>In the body of the click listener, use an action, which in this case is for navigating to <strong>SecondAbilitySlice</strong>.</li>
+</ul>
+<ol type="1" start="5">
+<li>Run your app. Press the Navigate to Second Screen! Text and watch it navigates to the Second Screen.</li>
+</ol>
+<p class="image-container"><img style="width: 624.00px" src="img\\607f2c592accec00.png"></p>
+<p>Congratulations, you have built your first HarmonyOS app!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="0">
+        <p>Congratulations, you have built your first HarmonyOS app!</p>
+<h2 is-upgraded><strong>What&#39;s next?</strong></h2>
+<p>Check out some of these codelabs...</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

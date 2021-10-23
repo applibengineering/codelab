@@ -1,0 +1,696 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>HarmonyOS-WebView</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="how-to-use-webview-in-harmonyos"
+                  title="HarmonyOS-WebView"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Welcome!" duration="1">
+        <p class="image-container"><img alt="applibgrouplogo" src="img\\bbbab687c9ca3d4f.jpeg"></p>
+<p><strong>Last Updated:</strong> 2021-09-14</p>
+<h2 is-upgraded>Overview</h2>
+<p>If developers need to embed Web pages in their own applications, they can develop through the WebView component. This tutorial takes the application embedded WebView component as an example, considering these three aspects, WebView component construction, Web page/local page loading, and the interaction between the application and the Web page in WebView, so that you can quickly understand the basic capabilities and usage methods of the WebView component. For a detailed introduction of the capabilities of the WebView component, please refer to the development guide - <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ui-java-component-webview-0000001092715158" target="_blank">WebView</a></p>
+<ul>
+<li>Please use a real machine or an emulator to run to view the WebView effect, the previewer does not support WebView display.</li>
+<li>Only the real device with preset WebView capability supports WebView function. For details, please refer to the actual equipment support. Smart wearable devices do not support WebView.</li>
+</ul>
+<h2 is-upgraded>What you must know already</h2>
+<p>This codelab is written for programmers and assumes that you know the Java programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with Java.</p>
+<h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<ul class="checklist">
+<li>How to create a WebView component</li>
+<li>How to load a webpage in WebView</li>
+<li>How to load a local page in webview</li>
+<li>How to listen to WebPage loading status changes</li>
+<li>How the interaction happens between Webpage(JavaScript) and native code</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Environment Setup" duration="0">
+        <p>Install DevEco Studio. For details, please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/software_install-0000001053582415" target="_blank">Download and Install Software</a>. Set up the DevEco Studio development environment. The DevEco Studio development environment needs to depend on the network environment. It needs to be connected to the network to ensure the normal use of the tool. You can configure the development environment according to the following two situations:</p>
+<ul>
+<li>If you can directly access the Internet, you only need to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427#section67391947173214" target="_blank">download the HarmonyOS SDK</a>.</li>
+<li>If the network cannot directly access the Internet, it needs to be accessed through a proxy server. Please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427" target="_blank">Configuring the Development Environment</a> . Developers can refer to the following link to complete the relevant configuration for device debugging:</li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_device-0000001053822404" target="_blank">Use real machine for debugging</a></li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_emulator-0000001115721921" target="_blank">Use the simulator for debugging</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App Overview" duration="2">
+        <p>The WebView app demonstrates how to use Webview component in your project. This application will help you learn</p>
+<ol type="1">
+<li>How you can load a webpage - Let&#39;s say (https://developer.huawei.com/en/)</li>
+<li>How you can provide navigation interface to navigate within the webpages present in the webview.</li>
+<li>How you can load a local html page - Ex: a registration form.</li>
+<li>The interactions between WebPage (i.e. JavaScript) and Native code <ul>
+<li>WebPage triggers the transfer of data between WebPage and native code, say for example : on click of &#34;Register&#34; button The registration details entered by the user in the form must be sent to native code for validation and after validation the user must be notified.</li>
+<li>Native code triggers the transfer of data between WebPage and native code, say for example :  On click of &#34;Get Cookies&#34; button in the native code, the cookie details saved in the webpage or JavaScript must be sent to Native code.</li>
+</ul>
+</li>
+</ol>
+<p>PS: This application is developed only for purpose of demonstration and must not be considered for real time scenarios.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 1: Configure the INTERNET permission in config.json" duration="1">
+        <p>When using a webview within your project, its required to add the INTERNET permission in the module&#39;s config.json. Sincw we will be wrtiting our code within entry.hap, the permission must be added in the config.json of entry module as shown below: <img alt="snap1" src="img\\bdcc29dae3fe98e8.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 2: Create three UI layouts" duration="5">
+        <h2 is-upgraded>2.1. ability_main.xml - must have with 2 buttons</h2>
+<ul>
+<li>Load webview</li>
+<li>Load local html page</li>
+</ul>
+<pre><code language="language-xml" class="language-xml">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+    xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+    ohos:height=&#34;match_parent&#34;
+    ohos:width=&#34;match_parent&#34;
+    ohos:alignment=&#34;center&#34;
+    ohos:orientation=&#34;vertical&#34;&gt;
+
+    &lt;Text
+        ohos:id=&#34;$+id:text_header&#34;
+        ohos:height=&#34;match_content&#34;
+        ohos:width=&#34;match_content&#34;
+        ohos:background_element=&#34;$graphic:background_ability_main&#34;
+        ohos:alignment=&#34;center&#34;
+        ohos:text=&#34;$string:mainability_textheader&#34;
+        ohos:text_size=&#34;40vp&#34;
+        /&gt;
+    &lt;Button
+        ohos:height=&#34;match_content&#34;
+        ohos:width=&#34;match_parent&#34;
+        ohos:id=&#34;$+id:btn_web_page&#34;
+        ohos:margin=&#34;30vp&#34;
+        ohos:background_element=&#34;$graphic:button_background&#34;
+        ohos:text=&#34;$string:mainability_web_page_text&#34;
+        ohos:text_size=&#34;30vp&#34;
+        ohos:text_color=&#34;#FFFFFF&#34;
+        /&gt;
+    &lt;Button
+        ohos:height=&#34;match_content&#34;
+        ohos:width=&#34;match_parent&#34;
+        ohos:id=&#34;$+id:btn_local_page&#34;
+        ohos:margin=&#34;30vp&#34;
+        ohos:background_element=&#34;$graphic:button_background&#34;
+        ohos:text=&#34;$string:mainability_local_page_text&#34;
+        ohos:text_size=&#34;30vp&#34;
+        ohos:text_color=&#34;#FFFFFF&#34;
+        /&gt;
+&lt;/DirectionalLayout&gt;
+</code></pre>
+<h2 is-upgraded>2.2. webpage.xml - Consists of</h2>
+<ul>
+<li>Two Image components i.e Back and Forward interfaces</li>
+<li>One Text component to the loading state of the webpage</li>
+<li>A Webview to load the webpage.</li>
+</ul>
+<pre><code language="language-xml" class="language-xml">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+    xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+    ohos:height=&#34;match_parent&#34;
+    ohos:width=&#34;match_parent&#34;
+    ohos:alignment=&#34;center&#34;
+    ohos:orientation=&#34;vertical&#34;&gt;
+
+    &lt;DependentLayout
+        ohos:height=&#34;match_content&#34;
+        ohos:width=&#34;match_parent&#34;
+        ohos:top_margin=&#34;5vp&#34;
+        ohos:orientation=&#34;horizontal&#34;
+        &gt;
+        &lt;Image
+            ohos:id=&#34;$+id:goback&#34;
+            ohos:height=&#34;40vp&#34;
+            ohos:width=&#34;40vp&#34;
+            ohos:align_parent_left=&#34;true&#34;
+            ohos:start_margin=&#34;5vp&#34;
+            ohos:scale_mode=&#34;stretch&#34;
+            ohos:image_src=&#34;$media:back_button&#34;/&gt;
+        &lt;DirectionalLayout
+            ohos:height=&#34;match_content&#34;
+            ohos:width=&#34;match_content&#34;
+            ohos:right_of=&#34;$id:goback&#34;
+            ohos:left_of=&#34;$id:forward&#34;
+            ohos:center_in_parent=&#34;true&#34;&gt;
+            &lt;Text
+                ohos:id=&#34;$+id:webpage_header&#34;
+                ohos:height=&#34;match_content&#34;
+                ohos:width=&#34;match_content&#34;
+                ohos:background_element=&#34;$graphic:header_background&#34;
+                ohos:layout_alignment=&#34;center&#34;
+                ohos:padding=&#34;10vp&#34;
+                ohos:text=&#34;$string:webpage_header&#34;
+                ohos:text_color=&#34;#FFFFFF&#34;
+                ohos:text_size=&#34;15vp&#34;
+                /&gt;
+        &lt;/DirectionalLayout&gt;
+        &lt;Image
+            ohos:id=&#34;$+id:forward&#34;
+            ohos:height=&#34;40vp&#34;
+            ohos:width=&#34;40vp&#34;
+            ohos:end_margin=&#34;5vp&#34;
+            ohos:align_parent_right=&#34;true&#34;
+            ohos:scale_mode=&#34;stretch&#34;
+            ohos:image_src=&#34;$media:forward_button&#34;
+            /&gt;
+    &lt;/DependentLayout&gt;
+
+    &lt;ohos.agp.components.webengine.WebView
+        ohos:id=&#34;$+id:webview&#34;
+        ohos:height=&#34;match_parent&#34;
+        ohos:width=&#34;match_parent&#34;
+        ohos:margin=&#34;20vp&#34;
+        /&gt;
+&lt;/DirectionalLayout&gt;
+</code></pre>
+<h2 is-upgraded>2.3. local_page.xml - Consists of</h2>
+<ul>
+<li>A Button to display the cookie information stored in the webpage</li>
+<li>A Webview to load the local html page</li>
+</ul>
+<pre><code language="language-xml" class="language-xml">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+    xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+    ohos:height=&#34;match_parent&#34;
+    ohos:width=&#34;match_parent&#34;
+    ohos:alignment=&#34;center&#34;
+    ohos:orientation=&#34;vertical&#34;&gt;
+    &lt;DependentLayout
+        ohos:height=&#34;match_content&#34;
+        ohos:width=&#34;match_parent&#34;
+        ohos:orientation=&#34;horizontal&#34;&gt;
+
+        &lt;Button
+            ohos:id=&#34;$+id:btn_cookie&#34;
+            ohos:height=&#34;match_content&#34;
+            ohos:width=&#34;match_content&#34;
+            ohos:background_element=&#34;$graphic:button_background&#34;
+            ohos:text=&#34;$string:get_cookie&#34;
+            ohos:text_size=&#34;15vp&#34;
+            ohos:padding=&#34;10vp&#34;
+            ohos:text_color=&#34;#FFFFFF&#34;
+            ohos:top_margin=&#34;10vp&#34;
+            ohos:right_margin=&#34;10vp&#34;
+            ohos:align_parent_right=&#34;true&#34;
+            /&gt;
+    &lt;/DependentLayout&gt;
+
+    &lt;ohos.agp.components.webengine.WebView
+        ohos:width=&#34;match_parent&#34;
+        ohos:height=&#34;match_parent&#34;
+        ohos:bottom_margin=&#34;50vp&#34;
+        ohos:top_margin=&#34;20vp&#34;
+        ohos:id=&#34;$+id:local_webview&#34;
+        /&gt;
+&lt;/DirectionalLayout&gt;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 3: Create a slice for the ability_main.xml and initialize the views and set listeners" duration="4">
+        <p>Create a slice MainAbilitySlice.java for the main page i.e ability_main.xml. After creating the slice, initialize the views in the layout and set click listeners to the two buttons present in the layout. On click of the any of the button, make sure the respective slice is opened.</p>
+<ul>
+<li>&#34;Load webview&#34; button must load WebpageSlice.java</li>
+<li>&#34;Load local html&#34; page button must load LocalPageSlice.java</li>
+</ul>
+<p>PS: WebPageSlice.java &amp; LocalPageSlice.java will empty as of now and the appropriate code will be added in the next tasks.</p>
+<pre><code language="language-java" class="language-java">    public class MainAbilitySlice extends AbilitySlice {
+        Button webPageButton;
+        Button localPageButton;
+
+        @Override
+        public void onStart(Intent intent) {
+            super.onStart(intent);
+            super.setUIContent(ResourceTable.Layout_ability_main);
+
+            // initialize the views
+            webPageButton = (Button) findComponentById(ResourceTable.Id_btn_web_page);
+            localPageButton = (Button) findComponentById(ResourceTable.Id_btn_local_page);
+
+            // set the click listener for webPageButton
+            webPageButton.setClickedListener((component) -&gt; {
+                present(new WebPageSlice(), new Intent());
+            });
+
+            // set the click listener for localPageButton
+            localPageButton.setClickedListener((component) -&gt; {
+                present(new LocalPageSlice(), new Intent());
+            });
+        }
+    }
+</code></pre>
+<h2 is-upgraded>Snapshot of MainAbility.java :</h2>
+<p class="image-container"><img alt="main_page" src="img\\4646b4f7edcb97e0.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 4: Create a slice for the web_page.xml for loading the webpage." duration="5">
+        <h2 is-upgraded>4.1. Initialize the webview and load the required webpage</h2>
+<pre><code language="language-java" class="language-java">    //initialize the webview
+    WebView webView = (WebView) findComponentById(ResourceTable.Id_webview);
+
+    //allow javascript for webview
+    webView.getWebConfig().setJavaScriptPermit(true);
+
+    //load the webpage within the webview
+    webView.load(&#34;https://developer.huawei.com/en/&#34;);
+</code></pre>
+<h2 is-upgraded>4.2. Set WebAgent for listening to page loading callbacks</h2>
+<pre><code language="language-java" class="language-java">    webView.setWebAgent ( new WebAgent() {
+        @Override
+        public void onLoadingPage(WebView webview, String url, PixelMap favicon) {
+            super.onLoadingPage(webview, url, favicon);
+            // Custom processing when the page starts to load
+            HiLog.debug(TAG,&#34;onLoadingPage&#34;);
+            webPageHeader.setText(&#34;Loading...&#34;);
+        }
+
+        @Override
+        public void onPageLoaded(WebView webview, String url) {
+            super.onPageLoaded(webview, url);
+            // Customized processing after the page is loaded
+            HiLog.debug(TAG,&#34;onPageLoaded&#34;);
+            webPageHeader.setText(&#34;Loading completed !!&#34;);
+        }
+
+        @Override
+        public void onLoadingContent(WebView webview, String url) {
+            super.onLoadingContent(webview, url);
+            // Custom processing when loading resources
+            HiLog.debug(TAG,&#34;onLoadingContent&#34;);
+        }
+
+        @Override
+        public void onError(WebView webview, ResourceRequest request, ResourceError error) {
+            super.onError(webview, request, error);
+            // Custom processing when an error occurs
+            HiLog.debug(TAG,&#34;onError&#34;);
+            webPageHeader.setText(&#34;Page Load ERROR !!&#34;);
+        }
+    });
+</code></pre>
+<h2 is-upgraded>4.3. Set the navigation interfaces for going back/forward within the webview</h2>
+<pre><code language="language-java" class="language-java">   @Override
+   protected void onStart(Intent intent) {
+       .
+       .
+       .
+       //get the navigator object from the webview
+       Navigator navigator = webView.getNavigator();
+       setNavButtonListeners();
+   }
+
+   private void setNavButtonListeners() {
+       //on click of backButton, call navigator.goBack() if possible
+       backButton.setClickedListener((component) -&gt; {
+           if (navigator.canGoBack()) {
+               navigator.goBack();
+           }
+       });
+
+       //on click of forwarButton, call navigator.goForward() if possible
+       forwardButton.setClickedListener((component) -&gt; {
+           if (navigator.canGoForward()) {
+               navigator.goForward();
+           }
+       });
+    }
+</code></pre>
+<h2 is-upgraded>Snapshot of WebPageSlice.java :</h2>
+<p class="image-container"><img alt="webpage_page" src="img\\27a080b2bcf57aa4.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task 5: Create a slice for the local_page.xml for loading the local HTML page." duration="8">
+        <h2 is-upgraded>5.1. Place the local HTML page and its CSS file (if present) within your project.</h2>
+<ul>
+<li>Local HTML file and the CSS file that needs to be loaded in the webview can be placed in resources/rawfile folder.</li>
+</ul>
+<p>index.html</p>
+<pre><code language="language-html" class="language-html">&lt;html&gt;
+    &lt;script type=&#34;text/javascript&#34;&gt;
+           function init()
+           {
+              var obj = new Object();
+              obj.username = document.getElementById(&#39;user_id&#39;).value
+              obj.password = document.getElementById(&#39;password&#39;).value
+              obj.email = document.getElementById(&#39;email&#39;).value
+              obj.phone = document.getElementById(&#39;phone&#39;).value
+              var string = JSON.stringify(obj);
+              document.cookie = &#39;cookie details = &#39; + string;
+              JavaScriptInterface.call(string);
+           }
+
+           function callFuncInWeb(message)
+           {
+             var cookies = document.cookie;
+             return cookies;
+           }
+    &lt;/script&gt;
+&lt;form&gt;
+    &lt;h1&gt;WELCOME&lt;/h1&gt;
+    &lt;input placeholder=&#34;Username&#34; type=&#34;text&#34; id=&#34;user_id&#34; &gt;
+    &lt;input placeholder=&#34;Password&#34; type=&#34;password&#34; id=&#34;password&#34; &gt;
+    &lt;input placeholder=&#34;Email&#34; type=&#34;email&#34; id=&#34;email&#34; &gt;
+    &lt;input placeholder=&#34;Phone&#34; type=&#34;phone&#34; id=&#34;phone&#34;&gt;
+    &lt;button onclick=&#34;init()&#34; type=&#34;button&#34;&gt;REGISTER&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;link rel=&#34;stylesheet&#34; href=&#34;//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css&#34;&gt;
+
+&lt;link href=&#39;https://fonts.googleapis.com/css?family=Roboto:400&#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+&lt;link type=&#34;text/css&#34; rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;&lt;/link&gt;
+&lt;/html&gt;
+</code></pre>
+<p>style.css</p>
+<pre><code language="language-css" class="language-css">h1 {
+    height: 40px;
+    width: 100%;
+    font-size: 24px;
+    color: white;
+    line-height: 150%;
+    border-radius: 3px 3px 0 0;
+    text-align: center;
+    padding: 10px 0px;
+    background: #18aa8d;
+    font-family: sans-serif;
+}
+
+form {
+    box-sizing: border-box;
+    width: 320px;
+    margin: 100px auto 0;
+    box-shadow: 2px 2px 5px 1px rgba(0,0,0,0.2);
+    padding-bottom: 40px;
+    border-radius: 3px;
+}
+
+input {
+margin: 40px 25px;
+width: 280px;
+display: block;
+border: none;
+padding: 10px 10px;
+border-bottom: solid 1px #18aa8d;
+/*background: linear-gradient(to bottom, rgba(255,255,255,0) 96%, $color 4%);*/
+background-position: -200px 0;
+background-size: 200px 100%;
+background-repeat: no-repeat;
+color: black;
+}
+
+button {
+border: none;
+background: #18aa8d;
+cursor: pointer;
+border-radius: 3px;
+padding: 6px;
+width: 280px;
+color: white;
+margin-left: 25px;
+}
+</code></pre>
+<h2 is-upgraded>5.2. Initialize the webview and load the local HTML page</h2>
+<pre><code language="language-java" class="language-java">    private static final String FILE_PATH = &#34;https://example.com/rawfile/index.html&#34;;
+    private WebView webView;
+    @Override
+    public void onStart(Intent intent) {
+        super.onStart(intent);
+        super.setUIContent(ResourceTable.Layout_local_page);
+        webView = (WebView) findComponentById(ResourceTable.Id_local_webview);
+        cookieButton = (Button) findComponentById(ResourceTable.Id_btn_cookie);
+        webView.getWebConfig().setJavaScriptPermit(true);
+        webView.load(FILE_PATH);
+        webView.setWebAgent (new WebAgent() {
+            @Override
+            public ResourceResponse processResourceRequest(WebView webview, ResourceRequest request) {
+                final String authority = &#34;example.com&#34;;
+                final String rawFile = &#34;/rawfile/&#34;;
+                final String local = &#34;/local/&#34;;
+                Uri requestUri = request.getRequestUrl();
+                if (authority.equals(requestUri.getDecodedAuthority())) {
+                    String path = requestUri.getDecodedPath();
+                    if (TextTool.isNullOrEmpty(path)) {
+                        return super.processResourceRequest(webview, request);
+                    }
+                    if (path.startsWith(rawFile)) {
+                        // Access resource files according to custom rules
+                        String rawFilePath = &#34;entry/resources/rawfile/&#34; + path.replace(rawFile, &#34;&#34;);
+                        String mimeType = URLConnection.guessContentTypeFromName(rawFilePath);
+                        try {
+                            Resource resource = getResourceManager().getRawFileEntry(rawFilePath).openRawFile();
+                            ResourceResponse response = new ResourceResponse(mimeType, resource, null);
+                            return response;
+                        } catch (IOException e) {
+                            HiLog.debug(TAG, &#34;open raw file failed&#34;);
+                        }
+                    }
+                    if (path.startsWith(local)) {
+                        // Access local files according to custom rules
+                        String localFile = getContext().getFilesDir() + path.replace(local, &#34;/&#34;);
+                        HiLog.debug(TAG, &#34;open local file &#34; + localFile);
+                        File file = new File(localFile);
+                        if (!file.exists()) {
+                            HiLog.error(TAG, &#34;File not exists&#34;);
+                            return super.processResourceRequest(webview, request);
+                        }
+                        String mimeType = URLConnection.guessContentTypeFromName(localFile);
+                        try {
+                            InputStream inputStream = new FileInputStream(file);
+                            ResourceResponse response = new ResourceResponse(mimeType, inputStream, null);
+                            return response;
+                        } catch (IOException e) {
+                            HiLog.error(TAG, &#34;Open local file failed&#34;);
+                        }
+                    }
+                }
+                return super.processResourceRequest(webview, request);
+            }
+        });
+    }
+</code></pre>
+<h2 is-upgraded>5.3. Implement JsCallback to receive the form details entered by user after user clicks on Register button.</h2>
+<pre><code language="language-java" class="language-java">    webView.addJsCallback(&#34;JavaScriptInterface&#34;,new JavaScriptInterface(getContext()));
+
+    //inner class implementing JsCallback
+    public class JavaScriptInterface implements JsCallback {
+        Context context;
+
+        public JavaScriptInterface(Context context) {
+            this.context = context;
+        }
+        @Override
+        public String onCallback(String jsonString) {
+            ToastDialog toastDialog = new ToastDialog(context);
+            Component component = LayoutScatter.getInstance(context).parse(ResourceTable.Layout_toast_layout, null, false);
+            Text toastText = (Text) component.findComponentById(ResourceTable.Id_toast_text);
+            Form form = null;
+            try {
+                form = ZSONObject.stringToClass(jsonString, Form.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String userName = form.getUserName();
+            String password = form.getPassword();
+            String email = form.getEmail();
+            String phone = form.getPhone();
+            if (validateName(userName) &amp;&amp; validatePassword(password) &amp;&amp; validateEmail(email) &amp;&amp; validatePhone(phone)) {
+                toastText.setText(&#34;SIGNUP SUCCESS !!&#34;);
+                toastDialog.setComponent(component).show();
+            }
+            return jsonString;
+        }
+    }
+</code></pre>
+<p>Once native code receives the user details entered by the user in the registration form, the details can be validated using the following code.</p>
+<pre><code language="language-java" class="language-java">    public boolean validateName(String input) {
+        ToastDialog toastDialog = new ToastDialog(LocalPageSlice.this);
+        Component component = LayoutScatter.getInstance(LocalPageSlice.this).parse(
+                ResourceTable.Layout_toast_layout, null, false);
+        Text toastText = (Text) component.findComponentById(ResourceTable.Id_toast_text);
+        String toastMessage = null;
+        if (input == null || input.length() &lt; 2) {
+            toastMessage = &#34;Error - Empty name or less than 2 characters&#34;;
+        } else if (PatternUtils.isConsistOfNumber(input) || PatternUtils.isContainSpecialCharacter(input)) {
+            toastMessage = &#34;Error - Invalid name : must consist of only alphabets&#34;;
+        }
+        if (toastMessage != null) {
+            toastText.setText(toastMessage);
+            toastDialog.setComponent(component).show();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validatePassword(String input) {
+        ToastDialog toastDialog = new ToastDialog(LocalPageSlice.this);
+        Component component = LayoutScatter.getInstance(LocalPageSlice.this).parse(
+                ResourceTable.Layout_toast_layout, null, false);
+        Text toastText = (Text) component.findComponentById(ResourceTable.Id_toast_text);
+        String toastMessage = null;
+        if (input == null || input.length() &lt; 5) {
+            toastMessage = &#34;Error - Empty password or less than 5 characters&#34;;
+        } else if (!PatternUtils.isContainSpecialCharacter(input)) {
+            toastMessage = &#34;Error - Invalid password : must consist of atleast 5 characters including a special character&#34;;
+        }
+        if (toastMessage != null) {
+            toastText.setText(toastMessage);
+            toastDialog.setComponent(component).show();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateEmail(String input) {
+        ToastDialog toastDialog = new ToastDialog(LocalPageSlice.this);
+        Component component = LayoutScatter.getInstance(LocalPageSlice.this).parse(
+                ResourceTable.Layout_toast_layout, null, false);
+        Text toastText = (Text) component.findComponentById(ResourceTable.Id_toast_text);
+        String toastMessage = null;
+        if (input == null || input.length() &lt; 3) {
+            toastMessage = &#34;Error - Empty email or too less characters&#34;;
+        } else if (!(input.contains(&#34;@&#34;) &amp;&amp; input.contains(&#34;.&#34;))) {
+            toastMessage = &#34;Error - Invalid email format&#34;;
+        }
+        if (toastMessage != null) {
+            toastText.setText(toastMessage);
+            toastDialog.setComponent(component).show();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validatePhone(String input) {
+        ToastDialog toastDialog = new ToastDialog(LocalPageSlice.this);
+        Component component = LayoutScatter.getInstance(LocalPageSlice.this).parse(
+                ResourceTable.Layout_toast_layout, null, false);
+        Text toastText = (Text) component.findComponentById(ResourceTable.Id_toast_text);
+        String toastMessage = null;
+        if (input == null || input.length() &lt; 10) {
+            toastMessage = &#34;Error - Empty phone number or less digits in the phone number&#34;;
+        }
+        if (toastMessage != null) {
+            toastText.setText(toastMessage);
+            toastDialog.setComponent(component).show();
+            return false;
+        }
+        return true;
+    }
+</code></pre>
+<h2 is-upgraded>5.4. Use webiew.executeJs() to show the cookie details saved in the webpage when user clicks on &#34;Get Cookie&#34; button</h2>
+<pre><code language="language-java" class="language-java">    cookieButton.setClickedListener(new Component.ClickedListener() {
+        @Override
+        public void onClick(Component component) {
+            webView.executeJs(&#34;javascript:callFuncInWeb()&#34;, new AsyncCallback&lt;String&gt;() {
+                @Override
+                public void onReceive(String msg) {
+                    if (msg == null || msg.equals(&#34;\&#34;\&#34;&#34;)) {
+                        msg = &#34;Empty cookie&#34;;
+                    }
+                    ToastDialog toastDialog = new ToastDialog(LocalPageSlice.this);
+                    Component component = LayoutScatter.getInstance(LocalPageSlice.this).parse(
+                            ResourceTable.Layout_toast_layout, null, false);
+                    Text toastText = (Text) component.findComponentById(ResourceTable.Id_toast_text);
+                    toastText.setTextSize(50);
+                    toastText.setText(msg);
+                    toastDialog.setComponent(component).show();
+                }
+            });
+        }
+    });
+</code></pre>
+<p>&#34;callFuncInWeb()&#34; implementation is present in the index.html present in Section 5.1. This method will save user details entered by the user in the registration form within WebPage by storing it in a variable as shown below</p>
+<pre><code language="language-html" class="language-html">   function callFuncInWeb(message)
+   {
+     var cookies = document.cookie;
+     return cookies;
+   }
+</code></pre>
+<h2 is-upgraded>Snapshot of LocalPageSlice.java :</h2>
+<p class="image-container"><img alt="local_page" src="img\\fe8c39aed212d581.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run the project and install the hap in the simulator" duration="2">
+        <p>Congratulations..!! You have completed all the tasks required for this application.</p>
+<p>Once the code is ready, you can build the project and check the functionality of the webview in the simulator. Screenshots of the application are below</p>
+<ul>
+<li>MainAbilitySlice.java</li>
+</ul>
+<p class="image-container"><img alt="main_page" src="img\\4646b4f7edcb97e0.PNG"></p>
+<ul>
+<li>WebPageSlice.java</li>
+</ul>
+<p class="image-container"><img alt="webpage_page" src="img\\27a080b2bcf57aa4.PNG"></p>
+<ul>
+<li>LocalPageSlice.java - initial view</li>
+</ul>
+<p class="image-container"><img alt="local_page_1" src="img\\81b841107d028a98.PNG"></p>
+<ul>
+<li>LocalPageSlice.java - when Register button is clicked</li>
+</ul>
+<p class="image-container"><img alt="local_page_2" src="img\\1b4167c5197312d5.PNG"></p>
+<ul>
+<li>LocalPageSlice.java - when Get Cookie button is clicked</li>
+</ul>
+<p class="image-container"><img alt="local_page_3" src="img\\c6581d6f7a85e7a.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Author Info &amp; Documentation links" duration="1">
+        <h2 is-upgraded>Author Info :</h2>
+<p>This codelab is written by Samuel Abhishekam M. You can find me @samuelabhishekamm@gmail.com</p>
+<h2 is-upgraded>Documentation Links:</h2>
+<p>You can find the complete <a href="https://github.com/applibgroup/codelabs/tree/main/FirstWebView" target="_blank">demo source code</a> here.</p>
+<p>Checkout the official documentation of <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ui-java-component-webview-0000001092715158" target="_blank">WebView</a> and check out all the APIs provided by WebView in HarmonyOS in this <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/webview-0000001078480106" target="_blank">link</a> and feel free to explore them in your applications.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

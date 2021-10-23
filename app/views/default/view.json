@@ -1,0 +1,13 @@
+{
+  "title": "AppLibGroup-CodeLabs",
+  "description": "AppLibGroup-CodeLabs provide a guided, tutorial, hands-on coding experience. Most Labs will step you through the process of compiling & porting libraries, building a small application, or adding a new feature to an existing application.",
+  "tags": [],
+  "categories": [],
+  "exclude": [
+    "^lang-.*"
+  ],
+  "logoUrl": "/images/logo.png",
+  "toolbarBgColor": "#37474F",
+  "sort": "mainCategory",
+  "pins": []
+}

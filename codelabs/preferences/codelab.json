@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-07T13:08:33Z",
+  "id": "preferences",
+  "duration": 16,
+  "title": "Preferences",
+  "authors": "Application Library Engineering Group",
+  "summary": "In this codelab, you'll get familiar with How to save data to HarmonyOS Preferences",
+  "source": "17GhWoq63OKKpwI3EeZvyDxSEPUvNL2wn4orhAIkrsLo",
+  "theme": "sample",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Sample"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/applibgroup/applibgroup.github.io/issues",
+  "ga": "UA-52746336-1",
+  "url": "preferences"
+}

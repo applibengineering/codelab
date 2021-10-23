@@ -1,0 +1,498 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Dialogues and Notifications</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="hmos-diag-noti"
+                  title="Dialogues and Notifications"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Welcome!" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\bbbab687c9ca3d4f.jpeg"></p>
+<p><strong>Last Updated:</strong> 2021-09-28</p>
+<h2 is-upgraded><strong>Introduction</strong></h2>
+<p><strong>Notification : </strong>Sometimes you want your app to show information to users even when the app isn&#39;t running in the foreground. For example, you might want to let users know that new content is available, or that their favorite sports team just scored a goal in a game. The HarmonyOS notification framework provides a way for your app to notify users even when the app is not in the foreground.</p>
+<p>A notification is a message that your app displays to the user outside of your app&#39;s normal UI. Notifications appear as icons in the device&#39;s notification area, which is in the status bar. To see the details of a notification, the user opens the notification drawer, for example by swiping down on the status bar. The notification area and the notification drawer are system-controlled areas that the user can view at any time.</p>
+<p><strong>Dialogs : </strong>Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.</p>
+<p>A dialog is a type of popup window that appears in front of app content to provide critical information or ask for a decision. Dialogs disable all app functionality when they appear, and remain on screen until confirmed, dismissed, or a required action has been taken.</p>
+<p>Dialogs are purposefully interruptive, so they should be used sparingly.</p>
+<p>In this codelab you create an app that triggers a notification when the user taps a button in your app. Similarly you will also be learning how to display Common, List and CustomDialogs on tap of a button.</p>
+<h2 is-upgraded><strong>What you must know already</strong></h2>
+<p>This codelab is written for programmers and assumes that you know the Java programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with Java.</p>
+<p>You should be able to:</p>
+<ul>
+<li>Create a new project by accepting default options and use the EmptyAbility(Java) template.</li>
+<li>Implement the <strong>onClick()</strong> method for buttons.</li>
+</ul>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to create a notification using the <strong>NotificationRequest </strong>class.</li>
+<li>How to create a Dialog using <strong>CommonDialog, ListDialog</strong> classes.</li>
+</ul>
+<h2 is-upgraded><strong>What you&#39;ll do</strong></h2>
+<ul>
+<li>Create an app that sends a notification when the user taps a button in the app.</li>
+<li>How to display Common, List and CustomDialogs on tap of a button.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App Overview" duration="5">
+        <p>Dialogues &amp; Notifications! is an app that lets the user trigger a Notification &amp; show Common, List, CustomDilaogs  using the four buttons shown in the screenshots below. While you create the app, you&#39;ll experiment with notification styles and Dialog styles.</p>
+<h2 is-upgraded><img style="width: 582.50px" src="img\\883322545769b3fc.png"></h2>
+<p class="image-container"><img style="width: 624.00px" src="img\\a9ac77edaf7ccc9b.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\e7d730847465c0c5.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\c64bc45c51a0363d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Create common, list &amp; custom dialogs" duration="3">
+        <p>A dialog is a small window that prompts the user to make a decision or enter additional information. A dialog does not fill the screen and is normally used for modal events that require users to take an action before they can proceed.</p>
+<p>The <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/basedialog-0000001054238757" target="_blank"><strong>BaseDialog</strong></a> class is the base class for dialogs, but you should avoid instantiating <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/basedialog-0000001054238757" target="_blank"><strong>BaseDialog</strong></a> directly. Instead, use one of the following subclasses:</p>
+<p><a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/commondialog-0000001054678727" target="_blank"><strong>CommonDialog</strong></a> : A dialog that can show a title and up to three buttons.</p>
+<p><a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/listdialog-0000001054120087" target="_blank"><strong>ListDialog</strong></a> : A dialog that can show up a list of selectable items.</p>
+<p>In this task, you will learn how to create different types of dialogs.</p>
+<h2 is-upgraded><strong>1.1 Create the project</strong></h2>
+<ol type="1" start="1">
+<li>In DevEco Studio, create a new project called<strong> &#34;Dialogs &amp; Notifications&#34;</strong> Accept the default options, and use the <strong>Empty Ability(Java)</strong> template.</li>
+<li>In your <strong>ability_main.xml</strong> layout file, replace the default Text with a button that has the following attributes:</li>
+</ol>
+<pre><code>&lt;Button
+   ohos:id=&#34;$+id:common_dialog&#34;
+   ohos:height=&#34;match_content&#34;
+   ohos:width=&#34;200vp&#34;
+   ohos:background_element=&#34;$color:grey&#34;
+   ohos:center_in_parent=&#34;true&#34;
+   ohos:layout_alignment=&#34;horizontal_center&#34;
+   ohos:padding=&#34;15vp&#34;
+   ohos:text=&#34;$string:common_dialog&#34;
+   ohos:text_size=&#34;22fp&#34;
+   /&gt;</code></pre>
+<p>Do the following steps in the <strong>MainAbilitySlice.java</strong> file:</p>
+<ol type="1" start="1">
+<li>Create a member variable for the <strong>CommonDialog </strong>button:</li>
+</ol>
+<pre><code>Button commonDialog;</code></pre>
+<ol type="1" start="2">
+<li>Create a method stub for the <strong>showCommonDialog()</strong> method:</li>
+</ol>
+<pre><code>private void showCommonDialog() {}</code></pre>
+<ol type="1" start="3">
+<li>In the <strong>onStart()</strong> method, initialize the commonDialog button and create a <strong>ClickedListener </strong>for it. Call <strong>showCommonDialog()</strong> from the onClick method:</li>
+</ol>
+<pre><code>commonDialog = (Button) findComponentById(ResourceTable.Id_common_dialog);
+commonDialog.setClickedListener(new Component.ClickedListener() {
+   @Override
+   public void onClick(Component component) {
+       showCommonDialog();
+   }
+});
+</code></pre>
+<h2 is-upgraded><strong>1.1 Creating common dialog</strong></h2>
+<p>For example, here&#39;s a basic Commondialog that&#39;s triggered on tap of a button,</p>
+<pre><code>private void showCommonDialog() {
+   CommonDialog commonDialog = new CommonDialog(this);
+   commonDialog.setTitleText(&#34;  Common Dialog&#34;);
+   commonDialog.setAutoClosable(true);
+   commonDialog.setSize(DIALOG_BOX_WIDTH, MATCH_CONTENT);
+   commonDialog.setButton(IDialog.BUTTON1, &#34;Yes&#34;, (iDialog, i) -&gt; {
+       showToast(&#34;Clicked Yes button&#34;);
+       iDialog.destroy();
+   });
+   commonDialog.setButton(IDialog.BUTTON2, &#34;No&#34;, (iDialog, i) -&gt; {
+       showToast(&#34;Clicked No button&#34;);
+       iDialog.destroy();
+   });
+   commonDialog.setButton(IDialog.BUTTON3, &#34;Maybe&#34;, (iDialog, i) -&gt; {
+       showToast(&#34;Clicked Maybe button&#34;);
+       iDialog.destroy();
+   });
+   commonDialog.show();
+}
+</code></pre>
+<p>Now, when you create an instance of this class and call show() on that object, the dialog appears as shown in figure 1.</p>
+<p class="image-container"><img style="width: 264.00px" src="img\\cd017d35c91faa2e.png"></p>
+<p>As shown in figure 2, there are three regions of a common dialog:</p>
+<p class="image-container"><img style="width: 327.90px" src="img\\cc724ff70623e65d.png"></p>
+<ol type="1" start="1">
+<li><strong>Title<br></strong>This is optional and should be used only when the content area is occupied by a detailed message, a list, or custom layout. If you need to state a simple message or question (such as the dialog in figure 1), you don&#39;t need a title.</li>
+<li><strong>Content area<br></strong>This can display a message or other custom layout.</li>
+<li><strong>Action buttons<br></strong>There should be no more than three action buttons in a dialog.</li>
+</ol>
+<h2 is-upgraded>1.2 Creating list &amp; custom dialog</h2>
+<h3 is-upgraded>1.2.1 Add a List Dialog button and a custom Dialog button</h3>
+<ol type="1" start="1">
+<li>In your <strong>ability_main.xml</strong> layout file, create two copies of the CommonDialog button. Change their attributes as shown below,</li>
+<li>Change the <strong>android:text</strong> attribute in the new buttons to &#34;<strong>List Dialog</strong>&#34; and &#34;<strong>Custom Dialog</strong>&#34;</li>
+<li>Change the <strong>android:id</strong> attributes for the buttons to <strong>list_dialog </strong>and <strong>custom_dialog</strong>.</li>
+<li>These Buttons were wrapped inside <strong>Dependentlayout, </strong>so that they can be equidistantly placed inside <strong>DirectionalLayout</strong>.</li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+   xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+   ohos:height=&#34;match_parent&#34;
+   ohos:width=&#34;match_parent&#34;
+   ohos:alignment=&#34;center&#34;
+   ohos:orientation=&#34;vertical&#34;
+   ohos:total_weight=&#34;3&#34;&gt;
+
+   &lt;DependentLayout
+       ohos:top_margin=&#34;100vp&#34;
+       ohos:height=&#34;match_content&#34;
+       ohos:width=&#34;match_parent&#34;
+       ohos:weight=&#34;1&#34;&gt;
+
+       &lt;Button
+           ohos:id=&#34;$+id:common_dialog&#34;
+           ohos:height=&#34;match_content&#34;
+           ohos:width=&#34;200vp&#34;
+           ohos:background_element=&#34;$color:grey&#34;
+           ohos:center_in_parent=&#34;true&#34;
+           ohos:layout_alignment=&#34;horizontal_center&#34;
+           ohos:padding=&#34;15vp&#34;
+           ohos:text=&#34;$string:common_dialog&#34;
+           ohos:text_size=&#34;22fp&#34;
+           /&gt;
+
+   &lt;/DependentLayout&gt;
+
+   &lt;DependentLayout
+       ohos:height=&#34;match_content&#34;
+       ohos:width=&#34;match_parent&#34;
+       ohos:weight=&#34;1&#34;&gt;
+
+       &lt;Button
+           ohos:id=&#34;$+id:list_dialog&#34;
+           ohos:height=&#34;match_content&#34;
+           ohos:width=&#34;200vp&#34;
+           ohos:background_element=&#34;$color:grey&#34;
+           ohos:center_in_parent=&#34;true&#34;
+           ohos:layout_alignment=&#34;horizontal_center&#34;
+           ohos:padding=&#34;15vp&#34;
+           ohos:text=&#34;$string:list_dialog&#34;
+           ohos:text_size=&#34;22fp&#34;
+           /&gt;
+   &lt;/DependentLayout&gt;
+
+
+   &lt;DependentLayout
+       ohos:bottom_margin=&#34;100vp&#34;
+       ohos:height=&#34;match_content&#34;
+       ohos:width=&#34;match_parent&#34;
+       ohos:weight=&#34;1&#34;&gt;
+
+       &lt;Button
+           ohos:id=&#34;$+id:custom_dialog&#34;
+           ohos:height=&#34;match_content&#34;
+           ohos:width=&#34;200vp&#34;
+           ohos:background_element=&#34;$color:grey&#34;
+           ohos:center_in_parent=&#34;true&#34;
+           ohos:layout_alignment=&#34;horizontal_center&#34;
+           ohos:padding=&#34;15vp&#34;
+           ohos:text=&#34;$string:custom_dialog&#34;
+           ohos:text_size=&#34;22fp&#34;
+           /&gt;
+   &lt;/DependentLayout&gt;
+
+&lt;/DirectionalLayout&gt;
+
+</code></pre>
+<ol type="1" start="5">
+<li>Extract all the text strings to string.json.</li>
+</ol>
+<p>Do the following steps in the MainAbilitySlice.java file:</p>
+<ol type="1" start="1">
+<li>Add a member variable for each of the new buttons.</li>
+</ol>
+<pre><code>Button listDialog;
+Button customDialog;</code></pre>
+<ol type="1" start="2">
+<li>At the end of the <strong>onStart()</strong> method, initialize the button variables and set their <strong>onClick </strong>listeners. </li>
+</ol>
+<pre><code>listDialog = (Button) findComponentById(ResourceTable.Id_list_dialog);
+listDialog.setClickedListener(new Component.ClickedListener() {
+   @Override
+   public void onClick(Component component) {
+       showListDialog();
+   }
+});
+
+customDialog = (Button) findComponentById(ResourceTable.Id_custom_dialog);
+customDialog.setClickedListener(new Component.ClickedListener() {
+   @Override
+   public void onClick(Component component) {
+       showCustomDialog();
+   }
+});</code></pre>
+<h3 is-upgraded>1.2.2 Implementing showListDialog() method : </h3>
+<p>ListDialog can be implemented as follows,</p>
+<pre><code>private void showListDialog() {
+   String[] list = new String[]{&#34;    item1&#34;, &#34;    item2&#34;, &#34;    item 3&#34;};
+   ListDialog listDialog = new ListDialog(this);
+   listDialog.setTitleText(&#34;  List Dialog&#34;);
+   listDialog.setItems(list);
+   listDialog.setAutoClosable(true);
+   listDialog.setOnSingleSelectListener(((iDialog, i) -&gt; {
+       showToast(list[i]);
+   }));
+   listDialog.show();
+}</code></pre>
+<p>For ListDialog you have to create String[] items that you wish to display as a list and pass the array to <strong>setItems()</strong> API.</p>
+<p>Now, when you create an instance of <strong>ListDialog </strong>and call <strong>show()</strong> on that object, the dialog appears as shown in figure 1.</p>
+<p class="image-container"><img style="width: 172.50px" src="img\\6ce8c17819945.png"></p>
+<h3 is-upgraded>1.2.3 Implementing showCustomDialog() method : </h3>
+<p>There are two steps involved in creating a Customlayout,</p>
+<ol type="1" start="1">
+<li>We have to create a layout file named <strong>custom_dialog.xml</strong>, and the contents of <strong>custom_dialog.xml</strong> includes a Title Text , and two action buttons. </li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;DirectionalLayout
+   xmlns:ohos=&#34;http://schemas.huawei.com/res/ohos&#34;
+   ohos:height=&#34;match_content&#34;
+   ohos:width=&#34;match_parent&#34;
+   ohos:orientation=&#34;vertical&#34;&gt;
+
+   &lt;Text
+       ohos:id=&#34;$+id:txt_dia&#34;
+       ohos:width=&#34;match_content&#34;
+       ohos:height=&#34;match_content&#34;
+       ohos:layout_alignment=&#34;center&#34;
+       ohos:margin=&#34;10vp&#34;
+       ohos:text=&#34;Do you really want to exit ?&#34;
+       ohos:text_color=&#34;$color:black&#34;
+       ohos:text_size=&#34;15vp&#34;/&gt;
+
+
+   &lt;DirectionalLayout
+       ohos:width=&#34;match_content&#34;
+       ohos:height=&#34;match_content&#34;
+       ohos:top_margin=&#34;13vp&#34;
+       ohos:bottom_margin=&#34;15vp&#34;
+       ohos:layout_alignment=&#34;center&#34;
+       ohos:orientation=&#34;horizontal&#34; &gt;
+
+       &lt;Button
+           ohos:id=&#34;$+id:btn_yes&#34;
+           ohos:width=&#34;80vp&#34;
+           ohos:height=&#34;30vp&#34;
+           ohos:clickable=&#34;true&#34;
+           ohos:left_margin=&#34;30vp&#34;
+           ohos:text_size=&#34;10vp&#34;
+           ohos:right_margin=&#34;80vp&#34;
+           ohos:background_element=&#34;$graphic:button_background&#34;
+           ohos:text=&#34;$string:yes&#34;
+           ohos:text_color=&#34;$color:blue&#34;
+           /&gt;
+
+       &lt;Button
+           ohos:id=&#34;$+id:btn_no&#34;
+           ohos:width=&#34;80vp&#34;
+           ohos:height=&#34;30vp&#34;
+           ohos:right_margin=&#34;20vp&#34;
+           ohos:background_element=&#34;$graphic:button_background&#34;
+           ohos:text_size=&#34;10vp&#34;
+           ohos:layout_alignment=&#34;center&#34;
+           ohos:clickable=&#34;true&#34;
+           ohos:text=&#34;$string:no&#34;
+           ohos:text_color=&#34;$color:blue&#34;
+           /&gt;
+   &lt;/DirectionalLayout&gt;
+
+&lt;/DirectionalLayout&gt;
+</code></pre>
+<ol type="1" start="2">
+<li>We will be creating an instance of CommonDialog and use <strong>setContentCustomComponent()</strong> API to load the above created <strong>custom_dialog.xml </strong>layout.</li>
+</ol>
+<pre><code>private void showCustomDialog() {
+   CommonDialog commonDialog = new CommonDialog(this);
+   commonDialog.setAutoClosable(true);
+   commonDialog.setSize(DIALOG_BOX_WIDTH, MATCH_CONTENT);
+   commonDialog.setCornerRadius(36.0f);
+   Component component =   LayoutScatter.getInstance(this).
+                              parse(ResourceTable.Layout_custom_dialog, null,true);
+   Button button1 = (Button) component.findComponentById(ResourceTable.Id_btn_yes);
+   Button button2 = (Button) component.findComponentById(ResourceTable.Id_btn_no);
+   button1.setClickedListener(component1 -&gt; click(commonDialog));
+   button2.setClickedListener(component1 -&gt; click(commonDialog));
+   commonDialog.setContentCustomComponent(component);
+   commonDialog.show();
+}
+
+public void click(CommonDialog dialog) {
+   dialog.destroy();
+}</code></pre>
+<p> the dialog appears as shown in figure 1.</p>
+<p class="image-container"><img style="width: 284.33px" src="img\\2cfd977276108909.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Task: Create a basic notification" duration="3">
+        <p>In this task you will learn how to create a basic notification in HarmonyOS.</p>
+<ol type="1" start="1">
+<li>In your <strong>ability_main.xml </strong>layout file, create<strong> Notify me! </strong>Button.</li>
+</ol>
+<pre><code>&lt;Button
+   ohos:id=&#34;$+id:notify_me&#34;
+   ohos:height=&#34;match_content&#34;
+   ohos:width=&#34;200vp&#34;
+   ohos:background_element=&#34;$graphic:background_ability_main&#34;
+   ohos:center_in_parent=&#34;true&#34;
+   ohos:layout_alignment=&#34;horizontal_center&#34;
+   ohos:padding=&#34;15vp&#34;
+   ohos:text=&#34;$string:notify_me&#34;
+   ohos:text_size=&#34;22fp&#34;
+   /&gt;</code></pre>
+<p>Do the following steps in the <strong>MainAbilitySlice.java</strong> file:</p>
+<ol type="1" start="1">
+<li>Create a member variable for the NotifyMe button:</li>
+</ol>
+<pre><code>Button notifyMe;</code></pre>
+<ol type="1" start="2">
+<li>Create a method stub for the <strong>createBasicNotification() </strong>method:</li>
+</ol>
+<pre><code>private void createBasicNotification() {}</code></pre>
+<ol type="1" start="3">
+<li>In the <strong>onStart()</strong> method, initialize the <strong>notifyMe </strong>button and create a <strong>ClickedListener </strong>for it. Call <strong>createBasicNotification()</strong> from the onClick method:</li>
+</ol>
+<pre><code>notifyMe = (Button) findComponentById(ResourceTable.Id_notify_me);
+notifyMe.setClickedListener(new Component.ClickedListener() {
+   @Override
+   public void onClick(Component component) {
+       createNotificationSlot(PRIMARY_SLOT_ID);
+       createBasicNotification(PRIMARY_SLOT_ID);
+   }
+});
+</code></pre>
+<h2 is-upgraded><strong>1.1 Build your first notification</strong></h2>
+<h3 is-upgraded>1.1.1 Create a notification slot</h3>
+<p>your code can assign each of your app&#39;s notifications to a user-customizable notification slot:</p>
+<ul>
+<li>Each notification slot represents a type of notification.</li>
+<li>In your code, you can group several notifications in each notification slot.</li>
+<li>For each notification slot, your app sets behavior for the slot, and the behavior is applied to all the notifications in the slot. For example, your app might set the notifications in a slot to play a sound, set color for LED light, or vibrate.</li>
+</ul>
+<p>Create a notification slot:</p>
+<ol type="1" start="1">
+<li>In <strong>MainAbilitySlice.java</strong>, create a constant for the notification slot ID. Every notification slot must be associated with an ID that is unique within your package. You use this slot ID later, to post your notifications.</li>
+</ol>
+<pre><code>private static final String PRIMARY_SLOT_ID = &#34;primary_notification_slot&#34;;</code></pre>
+<ol type="1" start="2">
+<li>Create a notification slot in the <strong>createNotificationSlot() </strong>method.</li>
+<li>construct a <strong>NotificationSlot </strong>object and use <strong>PRIMARY_SLOT_ID </strong>as the channel <strong>id</strong>.</li>
+<li>Set the importance to <strong>LEVEl_HIGH</strong>.</li>
+<li>In <strong>createNotificationSlot()</strong>, configure the <strong>notificationSlot </strong>object&#39;s initial settings. For example, you can set the notification light color, enable vibration etc.</li>
+</ol>
+<pre><code>private void createNotificationSlot(String id){
+   NotificationSlot notificationSlot = new NotificationSlot
+           (id, &#34;Basic Notification&#34;, NotificationSlot.LEVEL_HIGH);
+   notificationSlot.setEnableVibration(true);
+   notificationSlot.setEnableLight(true);
+   notificationSlot.setLedLightColor(Color.BLUE.getValue());
+   try {
+       NotificationHelper.addNotificationSlot(notificationSlot);
+   } catch (RemoteException e) {
+       e.printStackTrace();
+   }
+}
+</code></pre>
+<ol type="1" start="6">
+<li>Notifications are created using the <strong>NotificationRequest </strong>class, which allows you to set the content and behavior of the notification. </li>
+<li>The <strong>NotificationRequest </strong>class allows you to define a notification object by setting various notification attributes, such as the delivery time, small icon, large icon, and auto-deletion time, and by specifying the notification content type, such as <strong>NotificationNormalContent </strong>or <strong>NotificationLongTextContent</strong>.</li>
+<li>Using <strong>NotificationNormalContent </strong>object, add the title and text, as shown below. At the end, set this content to <strong>NotificationRequest </strong>object using <strong>setContent() </strong>method.</li>
+<li>Add the <strong>NotificationSlot </strong>to <strong>NotificationRequest </strong>Object using <strong>setSlotId()</strong> method.</li>
+</ol>
+<p>Now you can finish the<strong> createBasicNotification() </strong>method that sends the notification by calling <strong>publishNotification()</strong> on <strong>NotificationHelper</strong>.</p>
+<pre><code>private void createBasicNotification(String id) {
+   NotificationRequest notificationRequest = new NotificationRequest();
+   NotificationRequest.NotificationNormalContent content =
+           new NotificationRequest.NotificationNormalContent();
+   content.setTitle(&#34;Notification&#34;);
+   content.setText(&#34;Hi there&#34;);
+   NotificationRequest.NotificationContent notificationContent =
+           new NotificationRequest.NotificationContent(content);
+   notificationRequest.setTapDismissed(true);
+   notificationRequest.setContent(notificationContent);
+   notificationRequest.setSlotId(id);
+   try {
+       NotificationHelper.publishNotification(notificationRequest);
+   } catch (RemoteException e) {
+       e.printStackTrace();
+   }
+}</code></pre>
+<p><strong>Run your app. The Notify Me! button issues a notification, and the notification appears in the notification panel.</strong></p>
+<p class="image-container"><img style="width: 288.50px" src="img\\50d4bca3f5b9aeca.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Solution code" duration="3">
+        <p>DevEco Studio project: <a href="https://github.com/applibgroup/applibgroup/tree/main/CodeLabs/DialoguesAndNotifications" target="_blank">DialoguesAndNotifications</a> </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Summary" duration="2">
+        <p>A <em>notification </em>is a message that you can display to the user outside of your app&#39;s normal UI:</p>
+<ul>
+<li>Notifications provide a way for your app to interact with the user even when the app is not running.</li>
+<li>When HarmonyOS issues a notification, the notification appears first as an icon in the notification area of the device.</li>
+<li>To create a notification, use <strong>NotificationRequest</strong>.</li>
+<li>To issue a notification, use <strong>NotificationHelper.publishNotification()</strong> to pass the notification object to the HarmonyOS runtime system.</li>
+</ul>
+<p>A <em>dialog </em>is a small window that prompts the user to make a decision or enter additional information. A dialog does not fill the screen and is normally used for modal events that require users to take an action before they can proceed.</p>
+<p>There are three regions of a common dialog:</p>
+<p class="image-container"><img style="width: 327.90px" src="img\\cc724ff70623e65d.png"></p>
+<ul>
+<li><strong>Title<br></strong>This is optional and should be used only when the content area is occupied by a detailed message, a list, or custom layout. If you need to state a simple message or question (such as the dialog in figure 1), you don&#39;t need a title.</li>
+<li><strong>Content area<br></strong>This can display a message or other custom layout.</li>
+<li><strong>Action buttons<br></strong>There should be no more than three action buttons in a dialog.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="0">
+        <p>Congratulations, you have learnt</p>
+<ul>
+<li>How to create a notification using the <strong>NotificationRequest </strong>class.</li>
+<li>How to create a Dialog using<strong> CommonDialog, ListDialog</strong> classes.</li>
+</ul>
+<h2 is-upgraded><strong>What&#39;s next?</strong></h2>
+<p>Check out some of these codelabs...</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
