@@ -1,0 +1,252 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Intents &amp; Serialization Codelab</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="applib-intents-serialization"
+                  title="Intents &amp; Serialization Codelab"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/codelabs/issues">
+    
+      <google-codelab-step label="Overview" duration="3">
+        <p class="image-container"><img style="width: 128.08px" src="img\\257e17b8d759b939.png"></p>
+<p>This codelab is part of the Applibgroup Codelabs. You&#39;ll get the most value out of this course if you work through the codelabs in sequence, but it is not mandatory. All the course codelabs are listed on the <a href="https://codelabs.applibgroup.dev" target="_blank">ApplibGroup HarmonyOS Codelabs</a>.</p>
+<p>An Intent transfers information between objects. For example, when an ability needs to start another ability or when an ability slice needs to switch to another ability slice, the Intent can be used to specify the target to start and carry related data. An Intent object consists of the operation and parameters attributes. For more details, please see <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ability-intent-0000000000038799" target="_blank">Intents</a>.</p>
+<p>In this codelab, we will build an app</p>
+<h2 class="checklist" is-upgraded>What you&#39;ll learn</h2>
+<p>You will learn following concepts:</p>
+<h2 is-upgraded>Intents</h2>
+<ol type="1" start="1">
+<li>What is Intent</li>
+<li>Types of Intents</li>
+<li>Intent uses in HMOS</li>
+<li>Common Built in Intents</li>
+</ol>
+<h2 is-upgraded>Serialization</h2>
+<ol type="1" start="1">
+<li>What is Serialization</li>
+<li>Serialization in HMOS</li>
+</ol>
+<h2 is-upgraded>Demo Code</h2>
+<p>Download source code from the following github repository to get a visualization of the concepts explained further.</p>
+<aside class="special"><p><strong>Demo Source code: </strong><a href="https://github.com/applibgroup/codelabs/tree/main/IntentsSerializationDemo" target="_blank">https://github.com/applibgroup/codelabs/tree/main/IntentsSerializationDemo</a></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prerequisites" duration="2">
+        <h2 is-upgraded>Basic development experience</h2>
+<p>It will be good to have if you have an understanding of SDK, library, gradle etc. You can refer to Basic<a href="https://github.com/applibgroup/HarmonyOS-Knowledgebase/tree/main/Basic" target="_blank"> HarmonyOS Development</a> for the same.</p>
+<h2 is-upgraded>Java</h2>
+<p>Install Java (Oracle JRE 11 or OpenJDK 11) installed on your machine.</p>
+<h2 is-upgraded>DevEco Studio</h2>
+<p>Install DevEco Studio. For details, please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/software_install-0000001053582415" target="_blank">Download and Install Software</a>. Set up the DevEco Studio development environment. The DevEco Studio development environment needs to depend on the network environment. It needs to be connected to the network to ensure the normal use of the tool. You can configure the development environment according to the following two situations:</p>
+<ul>
+<li>If you can directly access the Internet, you only need to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427#section67391947173214" target="_blank">download the HarmonyOS SDK</a>.</li>
+<li>If the network cannot directly access the Internet, it needs to be accessed through a proxy server. Please refer to <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/environment_config-0000001052902427" target="_blank">Configuring the Development Environment</a> . Developers can refer to the following link to complete the relevant configuration for device debugging:</li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_device-0000001053822404" target="_blank">Use real machine for debugging</a></li>
+<li><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_emulator-0000001115721921" target="_blank">Use the simulator for debugging</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Introduction" duration="2">
+        <h2 is-upgraded>Intents</h2>
+<p>An <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ability-intent-0000000000038799" target="_blank">Intent </a>is the basic communication component of the system. As the name &#34;Intent&#34; describes itself, it encapsulates the intention and parameters for a method call. Most simple and important use of Intents can be seen as Ability.startAbility(Intent)to start an Ability where we are asking the HMOS system with an intention to start an ability.</p>
+<p>Intents are asynchronous messages which allow application components to request functionality from other Android components. Intents allow you to interact with components from the same applications as well as with components contributed by other applications. For example, an activity can start an external activity for taking a picture.</p>
+<p>An Intent object consists of the operation and parameters attributes. For details, see <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ability-intent-0000000000038799#EN-US_TOPIC_0000001076675608__table610715348476" target="_blank">Table 1</a>.</p>
+<h2 is-upgraded>Serialization</h2>
+<p>Data serialization is the process of converting data objects present in complex data structures into a byte stream for storage, transfer and distribution purposes on physical devices.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Type of Intents" duration="5">
+        <p>There are two types of intents:</p>
+<ol type="1" start="1">
+<li><h3 is-upgraded>Implicit Intent</h3>
+</li>
+</ol>
+<p>Implicit Intents helps an app to communicate between various applications present in the device. </p>
+<p>In Implicit Intents we do need to specify the name of the component. We just specify the Action which has to be performed and further this action is handled by the component of another application.</p>
+<p>The basic example of implicit Intent is to open file chooser</p>
+<pre><code>/**
+* Method to invoke File Chooser functionality using Intent
+* It demonstrates implicit intent
+*/
+private void chooseFile() {
+   Intent intent = new Intent();
+   Operation operation = new Intent.OperationBuilder()
+           .withAction(IntentConstants.ACTION_CHOOSE)
+           .build();
+   intent.setOperation(operation);
+   startAbility(intent);
+}</code></pre>
+<ol type="1" start="2">
+<li><h3 is-upgraded>Explicit Intent</h3>
+</li>
+</ol>
+<p>Explicit Intents are used to communicate with a particular component of the same application. So, we use this if we want communication between the components of your application only.</p>
+<p>For example, if you want to launch an Activity by clicking on some button on some Activity then we can specify the class name of the desired Activity to launch that activity. Since this approach requires a to mention the complete fully-qualified address, so you can use this approach in your own application.</p>
+<pre><code>/**
+* Method to start a new Ability using Intent
+* It demonstrates explicit intent
+*/
+private void startNewAbilityIntent() {
+   Intent intent = new Intent();
+   // Use the OperationBuilder class of Intent to construct an Operation
+   // object and set the deviceId (left empty if a local ability is required),
+   // bundleName, and abilityName attributes for the object.
+   Operation operation = new Intent.OperationBuilder()
+           .withDeviceId(&#34;&#34;)
+           .withBundleName(&#34;org.applibgroup.codelabs.intents&#34;)
+           .withAbilityName(&#34;org.applibgroup.codelabs.intents.SerializedDataAbility&#34;)
+           .build();
+
+   // Set the created Operation object to the Intent as its operation attribute.
+   intent.setOperation(operation);
+   Book book = new Book();
+   book.setAuthor(&#34;Robert Cecil Martin&#34;);
+   book.setBookName(&#34;Clean Code&#34;);
+   book.setPublishTime(123456);
+   intent.setParam(&#34;book&#34;, book);
+   startAbility(intent);
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Building an Intent" duration="3">
+        <p>HMOS system has defined a variety of standard intent action and category constants in the Intent class.</p>
+<ul>
+<li><code>operation</code> -- Encapsulates particular parameters and operations related to an Intent.</li>
+<li><code>parameters</code> -- Indicates the additional parameters passed to an Ability.</li>
+</ul>
+<p>Attributes included in an Intent are:</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\758718c68cd69155.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Intent uses in HMOS" duration="5">
+        <p>HMOS uses Intents for facilitating communication between its components like Abilities, Services and publishing events through CommonEventManager.</p>
+<ol type="1" start="1">
+<li><h3 is-upgraded>Starting an Ability</h3>
+</li>
+</ol>
+<p>We can use Intents to start a particular Ability. For example if you have LoginAbility and RegisterAbility, you can launch RegisterAbility from LoginAbility by using startAbility. </p>
+<p>If you need some result after the second ability finishes the launch, we can call startAbilityForResult from first activity to initiate the request and </p>
+<ol type="1" start="2">
+<li><h3 is-upgraded>Publish Common Events</h3>
+</li>
+</ol>
+<p>A Common Event is a message that is received by the application from the system. Intents can be used to publish Common events, a very common example of Common Event can be to listen to Wifi state change like enabled or disabled, or device charging message etc.</p>
+<pre><code>Intent intent = new Intent();
+Operation operation = new Intent.OperationBuilder()
+        .withAction(&#34;com.my.test&#34;)
+        .build();
+intent.setOperation(operation);
+CommonEventData eventData = new CommonEventData(intent);
+CommonEventPublishInfo publishInfo = new CommonEventPublishInfo();
+String[] permissions = {&#34;com.example.MyApplication.permission&#34;};
+publishInfo.setSubscriberPermissions(permissions); // Set the permissions.
+try {   
+    CommonEventManager.publishCommonEvent(eventData, publishInfo); 
+    HiLog.info(LABEL_LOG, &#34;Publish succeeded&#34;); 
+} catch (RemoteException e) {
+    HiLog.error(LABEL_LOG, &#34;Exception occurred during publishCommonEvent invocation.&#34;); 
+}</code></pre>
+<ol type="1" start="3">
+<li><h3 is-upgraded>Passing &amp; Receiving data</h3>
+</li>
+</ol>
+<p>Intents can be used for passing data from Requestor to the Target component with the help of <code>setParam("key", "value")</code> and <code>setParams("key", "value")</code>. </p>
+<h4 is-upgraded>Requestor / Handler</h4>
+<p>Create an Intent and an Operation object in which the Action attribute is specified, pass the Intent containing the operation attribute to the startAbilityForResult() method to initiate a request, and override the onAbilityResult() callback to process the request result.</p>
+<h4 is-upgraded>Please check <a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ability-intent-0000000000038799#EN-US_TOPIC_0000001076675608__table610715348476" target="_blank">this</a> for more details on above concept</h4>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Common Built in Intents" duration="1">
+        <p>The HMOS system comes with in built intents Please check built in intents <a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/intentconstants-0000001054559005#section549195547111300" target="_blank">here</a></p>
+<p class="image-container"><img style="width: 624.00px" src="img\\f69a77bf1b62ccc3.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="What is Serialization" duration="3">
+        <p>To serialize an object means to convert its state to a byte stream so that the byte stream can be reverted back into a copy of the object. A Java object is serializable if its class or any of its superclasses implements either the java. For serializing the object, we call the <code>writeObject()</code> method of the ObjectOutputStream class, and for deserialization we call the <code>readObject()</code> method of ObjectInputStream class.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\471a7476c81977b8.png"></p>
+<h2 is-upgraded>Limitations</h2>
+<ul>
+<li>Serializable uses reflection to generate the code based on member variables.</li>
+<li>As it is  generated code, many temporary objects are created which are not used. This leads to unnecessary memory consumption and slow performance.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Serialization in HMOS" duration="3">
+        <p>When we want to send an object or an Array with Intent so at that time we need Serialization. Serializability of a class in HMOS is enabled by implementing the interface <code>ohos.utils.Sequenceable</code>.</p>
+<p>Reflection is not used in Sequenceable, instead the user needs to write the custom code for marshalling and unmarshalling the required data. In the Demo, you will find the implementation of <code>boolean marshalling​(Parcel out)</code> and <code>boolean unmarshalling​(Parcel in)</code>.</p>
+<p>The marshalling​ method is responsible for writing the state of the object for its particular class so that the corresponding unmarshalling​ method can restore it.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\4cbff00530c8059e.png"></p>
+<p>Note : For storing the data into persistent storage. Use serialization instead of Sequenceable.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Demo" duration="5">
+        <p>This demo consists of two Screens. First screen has a couple of buttons. Click action of each button is binded with implicit and explicit intents.</p>
+<p class="image-container"><img style="width: 624.00px" src="img\\9fc022dff8e0c04e.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Author Info &amp; important links" duration="3">
+        <p>Congratulations, you&#39;ve successfully completed this codelab and learned about how to thoroughly analyze your code without execution about probable bugs, errors, warnings, improvements etc. that can be rectified during the development stage, allowing developers to develop a strong code base.</p>
+<p>You can check our more codelabs <a href="https://codelabs.applibgroup.dev/" target="_blank">here</a> and checkout code samples on <a href="https://github.com/applibgroup/" target="_blank">github</a></p>
+<h2 is-upgraded>Author Info :</h2>
+<p>This codelab is written by <a href="https://github.com/kanaksony" target="_blank">Kanak Sony</a>. You can find me at <a href="mailto:kanaksony@gmail.com" target="_blank">kanaksony@gmail.com</a></p>
+<h2 is-upgraded>Reference Links :</h2>
+<aside class="special"><p><strong>Demo Source code: </strong><a href="https://github.com/applibgroup/codelabs/tree/main/IntentsSerializationDemo" target="_blank">https://github.com/applibgroup/codelabs/tree/main/IntentsSerializationDemo</a></p>
+<p><strong>Documentation: </strong><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ability-intent-0000000000038799" target="_blank">https://developer.harmonyos.com/en/docs/documentation/doc-guides/ability-intent</a></p>
+<p><strong>YouTube: </strong><a href="https://www.youtube.com/watch?v=kLG1Eth9vsc" target="_blank">https://www.youtube.com/watch?v=kLG1Eth9vsc</a></p>
+<p>(Training video of Intent and Serialization)</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
