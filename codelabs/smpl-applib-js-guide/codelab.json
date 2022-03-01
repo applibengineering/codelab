@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-03-01T08:19:19Z",
+  "id": "smpl-applib-js-guide",
+  "duration": 17,
+  "title": "Build basic HarmonyOS App in JS",
+  "authors": "Application Library Engineering Group",
+  "summary": "In this codelab, you'll get familiar with How to save data to HarmonyOS Sqlite Database.",
+  "source": "1cg4V2y9uNM6biEktX4SXOTXG9oTbtZB338vRUP7Kkh8",
+  "theme": "sample",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Sample"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/applibgroup/applibgroup.github.io/issues",
+  "ga": "UA-52746336-1",
+  "url": "smpl-applib-js-guide"
+}

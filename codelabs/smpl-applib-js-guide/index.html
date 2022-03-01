@@ -1,0 +1,250 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Build basic HarmonyOS App in JS</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="smpl-applib-js-guide"
+                  title="Build basic HarmonyOS App in JS"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Welcome" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\6e6bc129c6a0a58.jpeg"></p>
+<p><strong>Last Updated:</strong> 2022-02-26 </p>
+<h2 is-upgraded><strong>Build basic HarmonyOS App in JS</strong></h2>
+<p>In this codelab, you&#39;ll learn how to build and run your first HarmonyOS app in the JS programming language. </p>
+<p class="image-container"><img alt="D:\\codelabs\\screen1.PNG" style="width: 242.00px" src="img\\3b3bb47db5aa624.png"> <img alt="D:\\codelabs\\screen2.PNG" style="width: 252.67px" src="img\\5091167add6305dd.png"> </p>
+<h2 is-upgraded><strong>What you must know</strong></h2>
+<p>This codelab is written for programmers and assumes that you know the JS programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with JS.</p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<p>In this codelab, you&#39;re going to get familiar with </p>
+<ul>
+<li>How to use DevEco Studio to build your app.</li>
+<li>How to run your app in the emulator.</li>
+<li>How to add interactive components</li>
+<li>How to display a second screen when a button component is pressed</li>
+</ul>
+<h2 is-upgraded><strong>Use DevEco Studio and Java to write HarmonyOS apps</strong></h2>
+<p>You write HarmonyOS apps in the JS programming language using an IDE called DevEco Studio. Based on JetBrains&#39; IntelliJ IDEA software, DevEco Studio is an IDE designed specifically for HarmonyOS development.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install DevEco Studio" duration="5">
+        <p>You can download DevEco Studio from the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank">DevEco Studio</a> page.</p>
+<p>DevEco Studio provides a complete IDE, including an advanced code editor and app templates. It also contains tools for development, debugging, testing, and performance that make it faster and easier to develop apps. You can use DevEco Studio to test your apps with a large range of preconfigured emulators.</p>
+<p>DevEco Studio is available for computers running Windows and for Macs running macOS. The NodeJS and NPM is bundled with DevEco Studio which are required for JS development</p>
+<aside class="special"><p><strong>Note:</strong> DevEco Studio is continually being improved. For the latest information on system requirements and installation instructions, see the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank"><strong>DevEco Studio download page</strong></a><strong>..</strong></p>
+</aside>
+<ol type="1" start="1">
+<li>Navigate to the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank">DevEco Studio download page</a> and follow the instructions to download and install DevEco Studio.</li>
+<li>Accept the default configurations for all steps, and ensure that all components are selected for installation.</li>
+<li>After the install is complete, the setup wizard downloads and installs additional components, including the HarmonyOS SDK. Be patient, because this process might take some time, depending on your internet speed.</li>
+<li>When the installation completes, DevEco Studio starts, and you are ready to create your first project.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your first project" duration="3">
+        <p>In this step, you will create a new HarmonyOS project for your first app. This simple app displays the string &#34;Hello World&#34; on the screen of a HarmonyOS virtual device.</p>
+<p>Here&#39;s what the finished app will look like:</p>
+<p class="image-container"><img alt="D:\\codelabs\\screen.PNG" style="width: 386.00px" src="img\\e5128c18a1d0aaf3.png"></p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to create a project in DevEco Studio.</li>
+<li>How to run your app on the emulator.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Create a new project</strong></h2>
+<ol type="1" start="1">
+<li>Open DevEco Studio.</li>
+<li>In the <strong>Welcome to DevEco Studio</strong> dialog, click <strong>Create HarmonyOS Project</strong></li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (codelabs.applibgroup.dev) has not been whitelisted." style="width: 624.00px" src="img\\2292b97d5b6d3dcf.png"></p>
+<ol type="1" start="3">
+<li>Select <strong>Empty Ability </strong>and click <strong>Next.</strong></li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\app.PNG" style="width: 624.00px" src="img\\a9db1f20681b556a.png"></p>
+<ol type="1" start="4">
+<li>Give your application a name such as <strong>JSSampleApp</strong>.</li>
+<li>Choose <strong>Project Type</strong> as <strong>Application</strong>.</li>
+<li>Select language as <strong>JS</strong></li>
+<li>Set <strong>Compatible API Version</strong>.</li>
+<li>Select the <strong>Device Type</strong>.</li>
+<li>Click <strong>Finish</strong></li>
+</ol>
+<p>. </p>
+<p class="image-container"><img alt="D:\\codelabs\\app1.PNG" style="width: 624.00px" src="img\\a33c755d19aeaee3.png"></p>
+<p class="image-container"><img alt="D:\\codelabs\\app2.PNG" style="width: 624.00px" src="img\\9f599b8cb3fe38df.png"></p>
+<p>After these steps, DevEco Studio:</p>
+<ul>
+<li>Creates a folder for your DevEco Studio project called <strong>JSSampleApp</strong>.</li>
+<li>Builds your project (this may take a few moments). DevEco Studio uses <a href="https://gradle.org/" target="_blank"><strong>Gradle</strong></a> as its build system. You can follow the build progress at the bottom of the DevEco Studio window.</li>
+<li>Opens the code editor showing your project.</li>
+</ul>
+<h2 is-upgraded><strong>Step 2: Explore the project structure and layout</strong></h2>
+<p class="image-container"><img alt="D:\\codelabs\\pro2.PNG" style="width: 360.00px" src="img\\1ae7363a8d7a7ccd.png"></p>
+<p>Based on you selecting the <strong>Empty Ability</strong> template for your project, DevEco Studio has set up a number of files for you. You can look at the hierarchy of the files for your app in multiple ways, one is in <strong>Project </strong>view. <strong>Project </strong>view shows your files and folders structured in a way that is convenient for working with a HarmonyOS project. (This does not always match the file hierarchy! To see the file hierarchy, choose the <strong>Project files</strong> view by clicking (<strong>1</strong>).)</p>
+<ol type="1" start="1">
+<li>Double-click the<strong> JSSampleApp(3)</strong> folder to expand the hierarchy of app files. (See (<strong>3</strong>) in the screenshot.)</li>
+<li>If you click <strong>Project (2)</strong>, you can hide or show the <strong>Project </strong>view. You might need to select <strong>View &gt; Tool Windows </strong>to see this option.</li>
+<li>The current <strong>Project </strong>view selection (<strong>1</strong>) is <strong>Project &gt; Project or Project &gt; Project Files</strong>.</li>
+</ol>
+<p>In the<strong> Project &gt; Project Files</strong> view you see the <strong>entry </strong>folder.</p>
+<ol type="1" start="1">
+<li>Expand the <strong>entry </strong>folder.</li>
+<li>You see <strong>src &gt; main</strong> folder, expand the <strong>main </strong>folder, you will see :<strong> js, resources</strong> and <strong>config.json</strong></li>
+</ol>
+<p>This folder contains <strong>config.json</strong>. This file describes all the components of your HarmonyOS app and is read by the HarmonyOS runtime system when your app is executed.</p>
+<ol type="1" start="3">
+<li>Expand the <strong>js </strong>folder. All your JS language files are organized here. The <strong>js </strong>folder contains:</li>
+</ol>
+<ol type="1" start="1">
+<li>The <strong>app.js</strong> file manages global JavaScript logics and application lifecycle.</li>
+<li>The <strong>pages</strong> directory stores all component pages.</li>
+<li>The <strong>common</strong> directory stores public resource files, such as media resources, custom components, and <strong>.js</strong> files.</li>
+<li>The <strong>i18n</strong> directory is used to configure resources in different languages, for example, UI strings and image paths.</li>
+<li>The <strong>resources</strong> directory stores resource configuration files, for example, for multi-resolution loading.</li>
+</ol>
+<ol type="1" start="4">
+<li>Expand the java folder<strong>. com.example.jssampleapp:</strong> This folder contains the Java source code files for your app.</li>
+<li>You also see <strong>src &gt; ohosTest </strong>folder, expand the <strong>ohosTest </strong>folder. This folder is where you would put your framework tests, which are tests that run on a HarmonyOS device. </li>
+</ol>
+<h2 is-upgraded><strong>Step 3: Run your app on emulator</strong></h2>
+<p>In this task, you will use the DevEco Device Manager to create a virtual device (or emulator).</p>
+<ol type="1" start="1">
+<li>In DevEco Studio, select <strong>Tools &gt; Device Manager</strong>.</li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (codelabs.applibgroup.dev) has not been whitelisted." style="width: 330.67px" src="img\\ecf44fcf456d0fe.png"></p>
+<ol type="1" start="2">
+<li>After Logging in using developer ID, you will be able to access a list of available Virtual Devices.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\dev1.PNG" style="width: 624.00px" src="img\\9e9bf3485b663e38.png"></p>
+<ol type="1" start="3">
+<li>Select any one of device and click run icon <img alt="The domain of the requested iframe (codelabs.applibgroup.dev) has not been whitelisted." style="width: 24.00px" src="img\\948df8a56a7923c8.png"> to start the device.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\emu1.PNG" style="width: 624.00px" src="img\\4fac5283a9eba1d5.png"></p>
+<ol type="1" start="4">
+<li>In DevEco Studio, select<strong> Run &gt; Run ‘entry&#39; </strong>or click the <strong>Run </strong>icon in the toolbar. <img alt="609c3e4473493202.png" style="width: 24.00px" src="img\\948df8a56a7923c8.png"> The icon will change when your app is already running. <img alt="edee73c1aed2b57e.png" style="width: 22.00px" src="img\\f6428a718a298340.png"></li>
+<li>Once your app builds and the emulator is ready, DevEco Studio uploads the app to the emulator and runs it. You should see your app as shown in the following screenshot.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\screen.PNG" style="width: 386.00px" src="img\\e5128c18a1d0aaf3.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Explore the UI" duration="3">
+        <p>Each visible Page in a Harmony JS app has a layout that defines the user interface for the Page which is written using HML.</p>
+<p>The HarmonyOS Markup Language (HML) is an HTML-like language that allows you to build pages based on components and events. Pages built using HML have advanced capabilities such as logic control, data binding, event binding, loop rendering, and conditional rendering.</p>
+<p>Events are bound to components through <strong>&#39;on&#39;</strong> or <strong>&#39;@&#39;</strong>. When a component triggers an event, the corresponding event processing function in the <strong>.js</strong> file is executed.</p>
+<p>Cascading Style Sheets (CSS) is a language used to describe the HML page structure. All HML components have default styles. You can customize styles for these components using CSS to design various pages.</p>
+<h2 class="checklist" is-upgraded>What you&#39;ll learn        </h2>
+<ul class="checklist">
+<li>Exploring HML and css files.</li>
+<li>How to add attributes, how to add string resources.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Create the UI</strong></h2>
+<ol type="1" start="1">
+<li>Find and open the <strong>HML </strong>file on the left side in the <strong>Project panel. (entry &gt; src &gt; main &gt; js &gt; pages &gt; index)</strong></li>
+<li>Double-click the HML file and its respective css and js file will be in the same folder.</li>
+<li>Right to Layout Editor is the <strong>Previewer (2)</strong>, which shows a visual representation of what the contents of the file will look like when compiled into an HarmonyOS app. You can view the visual representation, the HML/CSS/JS code, or both.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\pre1.PNG" style="width: 624.00px" src="img\\376cbc0303b91715.png"></p>
+<h2 is-upgraded><strong>Step 2: UI Elements</strong></h2>
+<ol type="1" start="1">
+<li>In the HML code, notice that the root element is marked to .container style whose details can be found in .css file and contains 2 child elements, Text and Button.</li>
+<li>Examine properties in Text element for the added string and notice that the string value definition and value can be found in <strong>entry &gt; src &gt; main &gt; js &gt; default &gt; i18n &gt; &lt;language&gt;.json</strong> file and referred in HML file using $t function.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\ui1.PNG" style="width: 246.75px" src="img\\995693fc06b5917d.png"><img alt="D:\\codelabs\\ui2.PNG" style="width: 268.67px" src="img\\b1745b39c2bd71e0.png"></p>
+<p class="image-container"><img alt="D:\\codelabs\\ui3.PNG" style="width: 229.84px" src="img\\8023a6b2aa83082f.png"><img alt="D:\\codelabs\\ui4.PNG" style="width: 179.05px" src="img\\541a63101df6c09e.png"></p>
+<ol type="1" start="3">
+<li>You should be able to change the existing String property value to another String. You will also be able to add String resources for other component text attribute.</li>
+<li>You should be able to change the style and properties of the Text element using .title in CSS</li>
+<li>Notice that, instead of defining style attributes in CSS file, can also be done directly using style attribute to the element with in HML. (button element in above screenshot)</li>
+<li>Notice the type attribute of the button element which is set to capsule to display capsule-like button. Can try out with different other types like circle, arc etc., </li>
+</ol>
+<h2 is-upgraded><strong>Step 3: Configuring the Device Type</strong></h2>
+<ol type="1" start="1">
+<li>Add &#34;Phone&#34; for smartphones and &#34;tv&#34; for smart TVs to the &#34;deviceType&#34; field in the config.json file.</li>
+<li>In order to adjust or define the styles based on deviceType, can use </li>
+</ol>
+<p>@media screen and (device-type: &lt;type of device&gt;) and enclose the styles within.</p>
+<p class="image-container"><img alt="D:\\codelabs\\ui6.PNG" style="width: 265.03px" src="img\\c45d075cce3f519e.png"> <img alt="D:\\codelabs\\ui5.PNG" style="width: 262.70px" src="img\\88fa24253cb31ded.png"></p>
+<h2 is-upgraded><strong>Step 4: Defining Events </strong></h2>
+<ol type="1" start="1">
+<li>Events mainly include gesture events for touchscreen devices such as wearables and key events for smart TVs.</li>
+<li>Examine the onclick event attribute defined for the button and on click of this event the launch function in the javascript (.js file) file would be executed.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\ui1.PNG" style="width: 236.35px" src="img\\995693fc06b5917d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Making App Interactive" duration="3">
+        <p>You have added Text to your app&#39;s main screen along with button and with no other functionality. In this task, you will make your button respond when the user clicks on it.</p>
+<p>On click of Button Component you will navigate to Second Screen.</p>
+<h2 class="checklist" is-upgraded>What you&#39;ll learn        </h2>
+<ul class="checklist">
+<li>How to implement Second Page.</li>
+<li>How to Navigate between Pages.</li>
+</ul>
+<p>Many applications consist of more than one page. We need to link these pages through page routing to implement redirection.</p>
+<p>The page router finds the target page based on the Page URI. </p>
+<h2 is-upgraded><strong>Step 1: Create the Second Page</strong></h2>
+<ol type="1" start="1">
+<li>In the Project window of DevEcoStudio, choose<strong> entry &gt; src &gt; main &gt; js &gt; default</strong>. Right-click the pages folder and choose <strong>New &gt; JS Page</strong> from the shortcut menu to create the <strong>next</strong> page.</li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\newjs1.png" style="width: 624.00px" src="img\\841d340c9daf0f75.png"></p>
+<h2 is-upgraded><strong>Step 2: Navigate to next page</strong></h2>
+<ol type="1" start="1">
+<li>On click of the button, Call <strong>router.push() to add the page URI to the route stack,</strong> that is, to navigate users to the page specified by the URI. Note to import the router module before calling the router method.</li>
+<li>Please note that router.back() can be used to navigate users back to index page</li>
+<li><img alt="D:\\codelabs\\ui1.PNG" style="width: 231.82px" src="img\\995693fc06b5917d.png"> <img alt="D:\\codelabs\\ui7.PNG" style="width: 220.67px" src="img\\8cf06f13a750021.png"></li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Author info &amp; References" duration="3">
+        <p>Congratulations, you have built your first HarmonyOS JS app!!!</p>
+<p>You can check our more codelabs <a href="https://codelabs.applibgroup.dev/" target="_blank">here</a>  </p>
+<h2 is-upgraded>Author Info        </h2>
+<p>This codelab is written by<strong> Archana A T</strong>. You can find me at <strong>archanaatr@gmail.com </strong></p>
+<h2 is-upgraded>Reference Links        </h2>
+<p>Guide and API reference links from HarmonyOS developer documentation can be found below... </p>
+<aside class="special"><p><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ui-arkui-overview-0000001178378456" target="_blank"><strong>https://developer.harmonyos.com/en/docs/documentation/doc-guides/ui-arkui-overview-0000001178378456</strong></a></p>
+<p><a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/js-apis-overview-0000001056361791" target="_blank"><strong>https://developer.harmonyos.com/en/docs/documentation/doc-references/js-apis-overview-0000001056361791</strong></a> </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
