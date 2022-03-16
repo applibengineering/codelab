@@ -1,0 +1,252 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Build basic HarmonyOS App in eTS</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-52746336-1"
+                  id="smpl-applib-ets-dev-guide"
+                  title="Build basic HarmonyOS App in eTS"
+                  environment="web"
+                  feedback-link="https://github.com/applibgroup/applibgroup.github.io/issues">
+    
+      <google-codelab-step label="Welcome!" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img\\431dbc1889172d34.jpeg"></p>
+<p><strong>Last Updated:</strong> 2022-02-26 </p>
+<h2 is-upgraded><strong>Build basic HarmonyOS App in eTS</strong></h2>
+<p>In this codelab, you&#39;ll learn how to build and run your first HarmonyOS app in the eTS programming language. </p>
+<p class="image-container"><img style="width: 199.53px" src="img\\2026686062e69446.png"><img style="width: 201.60px" src="img\\5a8a6cba055b881c.png"></p>
+<h2 is-upgraded><strong>What you must know</strong></h2>
+<p>This codelab is written for programmers and assumes that you know the Typescript programming language. If you are an experienced programmer and adept at reading code, you will likely be able to follow this codelab, even if you don&#39;t have much experience with Typescript.</p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<p>In this codelab, you&#39;re going to get familiar with </p>
+<ul>
+<li>How to use DevEco Studio to build your app.</li>
+<li>How to run your app in the emulator.</li>
+<li>How to add interactive components</li>
+<li>How to display a second screen when a button component is pressed</li>
+</ul>
+<h2 is-upgraded><strong>Use DevEco Studio and Java to write HarmonyOS apps</strong></h2>
+<p>You write HarmonyOS apps in the eTS programming language using an IDE called DevEco Studio. Based on JetBrains&#39; IntelliJ IDEA software, DevEco Studio is an IDE designed specifically for HarmonyOS development.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install DevEco Studio" duration="5">
+        <p>You can download DevEco Studio from the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank">DevEco Studio</a> page.</p>
+<p>DevEco Studio provides a complete IDE, including an advanced code editor and app templates. It also contains tools for development, debugging, testing, and performance that make it faster and easier to develop apps. You can use DevEco Studio to test your apps with a large range of preconfigured emulators.</p>
+<p>DevEco Studio is available for computers running Windows and for Macs running macOS. The NodeJS and NPM is bundled with DevEco Studio which are required for JS / eTS development</p>
+<p><strong>Note:</strong> DevEco Studio is continually being improved. For the latest information on system requirements and installation instructions, see the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank"><strong>DevEco Studio download page</strong></a><strong>..</strong></p>
+<ol type="1" start="1">
+<li>Navigate to the <a href="https://developer.harmonyos.com/en/develop/deveco-studio" target="_blank">DevEco Studio download page</a> and follow the instructions to download and install DevEco Studio.</li>
+<li>Accept the default configurations for all steps, and ensure that all components are selected for installation.</li>
+<li>After the install is complete, the setup wizard downloads and installs additional components, including the HarmonyOS SDK. Be patient, because this process might take some time, depending on your internet speed.</li>
+<li>When the installation completes, DevEco Studio starts, and you are ready to create your first project.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your first project" duration="3">
+        <ol type="1" start="2">
+<li>In this step, you will create a new HarmonyOS project for your first app. This simple app displays the string &#34;Hello World&#34; on the screen of a HarmonyOS virtual device.</li>
+<li>Here&#39;s what the finished app will look like:</li>
+</ol>
+<p class="image-container"><img style="width: 162.47px" src="img\\f418555c9de4c63e.png"></p>
+<h2 class="checklist" is-upgraded><strong>What you&#39;ll learn</strong></h2>
+<ul class="checklist">
+<li>How to create a project in DevEco Studio.</li>
+<li>How to run your app on the emulator.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Create a new project</strong></h2>
+<ol type="1" start="1">
+<li>Open DevEco Studio.</li>
+<li>In the <strong>Welcome to DevEco Studio</strong> dialog, click <strong>Create HarmonyOS Project</strong></li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (codelabs.applibgroup.dev) has not been whitelisted." style="width: 623.87px" src="img\\2292b97d5b6d3dcf.png"></p>
+<ol type="1" start="3">
+<li>Select <strong>Empty Ability </strong>and click <strong>Next.</strong></li>
+</ol>
+<p class="image-container"><img alt="D:\\codelabs\\app.PNG" style="width: 624.00px" src="img\\a9db1f20681b556a.png"></p>
+<ol type="1" start="4">
+<li>Give your application a name such as <strong>ETSSampleApp</strong>.</li>
+<li>Choose <strong>Project Type</strong> as <strong>Application</strong>.</li>
+<li>Select language as <strong>eTS</strong></li>
+<li>Set <strong>Compatible API Version</strong>.</li>
+<li>Select the <strong>Device Type</strong>.</li>
+<li>Click <strong>Finish</strong></li>
+</ol>
+<p class="image-container"><img style="width: 602.27px" src="img\\552ae69ef85da7f9.png"></p>
+<p>After these steps, DevEco Studio:</p>
+<ul>
+<li>Creates a folder for your DevEco Studio project called <strong>ETSSampleApp</strong>.</li>
+<li>Builds your project (this may take a few moments). DevEco Studio uses <a href="https://gradle.org/" target="_blank"><strong>Gradle</strong></a> as its build system. You can follow the build progress at the bottom of the DevEco Studio window.</li>
+<li>Opens the code editor showing your project.</li>
+</ul>
+<h2 is-upgraded><strong>Step 2: Explore the project structure and layout</strong></h2>
+<p class="image-container"><img style="width: 244.20px" src="img\\465bd1181e9bd2d5.png"></p>
+<p>Based on you selecting the <strong>Empty Ability</strong> template for your project, DevEco Studio has set up a number of files for you. You can look at the hierarchy of the files for your app in multiple ways, one is in <strong>Project </strong>view. <strong>Project </strong>view shows your files and folders structured in a way that is convenient for working with a HarmonyOS project. (This does not always match the file hierarchy! To see the file hierarchy, choose the <strong>Project files</strong> view by clicking (<strong>1</strong>).)</p>
+<ol type="1" start="1">
+<li>Double-click the<strong> ETSSampleApp (3)</strong> folder to expand the hierarchy of app files. (See (<strong>3</strong>) in the screenshot.)</li>
+<li>If you click <strong>Project (2)</strong>, you can hide or show the <strong>Project </strong>view. You might need to select <strong>View &gt; Tool Windows </strong>to see this option.</li>
+<li>The current <strong>Project </strong>view selection (<strong>1</strong>) is <strong>Project &gt; Project or Project &gt; Project Files</strong>.</li>
+</ol>
+<p>In the<strong> Project &gt; Project Files</strong> view you see the <strong>entry </strong>folder.</p>
+<ol type="1" start="1">
+<li>Expand the <strong>entry </strong>folder.</li>
+<li>You see <strong>src &gt; main</strong> folder, expand the <strong>main </strong>folder, you will see :<strong> ets, resources</strong> and <strong>config.json</strong></li>
+</ol>
+<p>This folder contains <strong>config.json</strong>. This file describes all the components of your HarmonyOS app and is read by the HarmonyOS runtime system when your app is executed.</p>
+<ol type="1" start="3">
+<li>Expand the <strong>ets </strong>folder. All your eTS language files are organized here. The <strong>ets </strong>folder contains:</li>
+</ol>
+<ol type="1" start="1">
+<li>The <strong>app.ets</strong> file manages global application logic and application lifecycle.</li>
+<li>The <strong>pages</strong> directory stores all component pages.</li>
+<li>The <strong>common</strong> directory stores public resource files, such as media resources, custom components, and common methods.</li>
+<li>The <strong>resources</strong> directory stores resource configuration files, for example, for multi-resolution loading.</li>
+</ol>
+<ol type="1" start="4">
+<li>Expand the java folder<strong>. com.example.etssampleapp:</strong> This folder contains the Java source code files for your app.</li>
+<li>You also see <strong>src &gt; ohosTest </strong>folder, expand the <strong>ohosTest </strong>folder. This folder is where you would put your framework tests, which are tests that run on a HarmonyOS device. </li>
+</ol>
+<h2 is-upgraded><strong>Step 3: Run your app on emulator</strong></h2>
+<p>In this task, you will use the DevEco Device Manager to create a virtual device (or emulator).</p>
+<ol type="1" start="1">
+<li>In DevEco Studio, select <strong>Tools &gt; Device Manager</strong>.</li>
+</ol>
+<p class="image-container"><img alt="The domain of the requested iframe (codelabs.applibgroup.dev) has not been whitelisted." style="width: 330.73px" src="img\\ecf44fcf456d0fe.png"></p>
+<p>      2. After Logging in using developer ID, you will be able to access a list of available Virtual Devices. (Please note that you would need minimum API version 7 to run an ETS application)</p>
+<p class="image-container"><img style="width: 602.27px" src="img\\372ad2e9ffaea26d.png"></p>
+<p>3. Select any device and click run icon <img alt="The domain of the requested iframe (codelabs.applibgroup.dev) has not been whitelisted." style="width: 24.00px" src="img\\948df8a56a7923c8.png"> to start the device.</p>
+<p class="image-container"><img style="width: 601.87px" src="img\\50537364974a633.png"></p>
+<p>4.  In DevEco Studio, select<strong> Run &gt; Run ‘entry&#39; </strong>or click the <strong>Run </strong>icon in the toolbar. <img alt="609c3e4473493202.png" style="width: 24.00px" src="img\\948df8a56a7923c8.png"> The icon will change when your app is already running. <img alt="edee73c1aed2b57e.png" style="width: 22.00px" src="img\\f6428a718a298340.png"></p>
+<p>5.. Once your app builds and the emulator is ready, DevEco Studio uploads the app to the emulator and runs it. You should see your app as shown in the following screenshot.</p>
+<p class="image-container"><img style="width: 186.53px" src="img\\f418555c9de4c63e.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Explore the UI" duration="3">
+        <p>Each visible page in a Harmony ETS app is collection of components that defines the user interface for the Page. eTS files allows you to build pages based on components and events. Pages build using ets have advanced capabilities such as logic control, databinding, event binding, loop rendering and conditional rendering.</p>
+<p>eTS framework have prebuilt decorators with special meanings for decorating classes, structures, methods, and variables that define component behavior in app. For example @Entry, @Component and @State we use in following sample.</p>
+<h2 class="checklist" is-upgraded>What you&#39;ll learn        </h2>
+<ul class="checklist">
+<li>How to build a Page and Decorators </li>
+<li>How to add attributes and set to components</li>
+<li>Extending a component feature.</li>
+</ul>
+<h2 is-upgraded><strong>Step 1: Create the UI</strong></h2>
+<ol type="1" start="1">
+<li>UI for eTS application are found in <strong>.ets</strong> files on the left side in Project panel. <strong>(entry &gt; src &gt; main &gt; ets &gt; pages) </strong></li>
+<li>EmptyAbility Template project by default creates &#34;Hello World&#34; sample code, and you see index.ets default page is added to it. </li>
+</ol>
+<p>We will modify &#34;Hello World&#34; screen to one shown below and on click of a button page slides to second page.</p>
+<h2 is-upgraded><strong>Step 2: UI Elements</strong></h2>
+<ol type="1" start="1">
+<li>Harmony supports multiple built-in UI components like Text, Button, Input etc. These components are arranged together by adding Component containers like Flex, Row, Column etc. to build a page.</li>
+<li>&#34;Flex&#34; component container is used to arrange a Text and Navigator button in columns. As shown below.</li>
+</ol>
+<p class="image-container"><img style="width: 555.53px" src="img\\c22d65f9b0cea1.png"></p>
+<ol type="1" start="3">
+<li>A component is tiny reusable UI module, @Component decorator is used to declare a component.</li>
+<li><strong>@Entry</strong> decorator which is added just above @Component Decorator in index.ets page, declares that, when the page gets loaded, the entry component is the one which will get executed first.</li>
+<li>All Application&#39;s business logic code are placed in ets folder and Resource folder for app resource like strings, image, color, float values, Rawfiles.</li>
+<li>For example String resources are added string.json, and same is accessed in app with resource key like ‘$r(app.string.hello_world), where hello_world key to access string.</li>
+</ol>
+<p class="image-container"><img style="width: 276.47px" src="img\\8b331b1176c395ed.png"></p>
+<h2 is-upgraded><strong>Step 3: Extend a component</strong></h2>
+<p>We can extend Built-in component to support additional feature with <strong>@Extend</strong> Decorator. Here we created Text component as fancy Text component by extending with <strong>fancy </strong>method. And used across page to give similar Textual representation</p>
+<p class="image-container"><img style="width: 418.00px" src="img\\d13ac294653382f1.png"></p>
+<p class="image-container"><img style="width: 395.20px" src="img\\c0c6265371df0e8e.png"></p>
+<h2 is-upgraded><strong>Step 4: Configuring the Device Type</strong></h2>
+<ol type="1" start="1">
+<li>Add &#34;Phone&#34; for smartphones and &#34;tv&#34; for smart TVs to the &#34;deviceType&#34; field in the config.json file.</li>
+</ol>
+<p class="image-container"><img style="width: 388.87px" src="img\\b777f7c641c3502f.png"></p>
+<h2 is-upgraded><strong>Step 5: Defining Events </strong></h2>
+<ol type="1" start="1">
+<li>Events mainly include gesture events for touchscreen devices such as wearables and key events for smart TVs.</li>
+<li>Examine the onclick event attribute defined for the button and on click of this event console log get printed.</li>
+</ol>
+<p class="image-container"><img style="width: 251.53px" src="img\\d7d8235701b2fbf3.png"></p>
+<p>Now You should be able to see Launch screen (First Screen) of your eTS sample project!!</p>
+<p>Next, we will see How to add multiple pages and make Application more Interactive</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Making App Interactive" duration="3">
+        <h2 class="checklist" is-upgraded>What you&#39;ll learn        </h2>
+<ul class="checklist">
+<li>How to implement Second Page.</li>
+<li>How to Navigate between Pages.</li>
+<li>Custom component</li>
+</ul>
+<p>Many applications consist of more than one page. We need to link these pages through page routing to implement redirection. </p>
+<h2 is-upgraded><strong>Step 1: Create the Second Page</strong></h2>
+<ol type="1" start="1">
+<li>In the Project window of DevEcoStudio, choose<strong> entry &gt; src &gt; main &gt; ets &gt; default</strong>. Right-click the pages folder and choose <strong>New &gt; eTS Page</strong> from the shortcut menu to create the <strong>next</strong> page.</li>
+</ol>
+<p class="image-container"><img style="width: 601.73px" src="img\\825bab5c071f98b9.png"></p>
+<h2 is-upgraded><strong>Step 2: Navigate to next page</strong></h2>
+<ol type="1" start="1">
+<li>Harmony Component <strong>Navigator()</strong> is used to Traverse between the pages. We added Navigator to the First Page. Navigator takes two parameters, <strong><em>target </em></strong>which takes page name and <strong><em>type </em></strong>which takes the type of navigation either forward(push) or backward(back).</li>
+</ol>
+<p>Here below to go to the second page, <strong>target </strong>is set to the second page index i.e., &#34;pages/detail&#34; and <strong>type</strong> to &#34;NavigationType.Push&#34; to add a new page.</p>
+<p class="image-container"><img style="width: 468.33px" src="img\\242d20119339685e.png"></p>
+<p>        2. Now from the second page, to go back to the previous page (i.e First Page) , set the Navigator <strong>target</strong> parameter to &#34;pages/index&#34; and <strong>type </strong>to &#34;NavigationType.Back&#34; as shown below</p>
+<p class="image-container"><img style="width: 492.40px" src="img\\25c81cf698be122c.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Author info &amp; References" duration="2">
+        <p>Congratulations, you have built your first HarmonyOS eTS app!!!</p>
+<p>You can check our more codelabs <a href="https://codelabs.applibgroup.dev/" target="_blank">here</a>  </p>
+<h2 is-upgraded>Author Info        </h2>
+<p>This codelab is written by<strong> Archana A T</strong>. You can find me at <strong>archanaatr@gmail.com </strong></p>
+<h2 is-upgraded>Reference Links        </h2>
+<p>Guide and API reference links from HarmonyOS developer documentation can be found below... </p>
+<p><a href="https://developer.harmonyos.com/en/docs/documentation/doc-guides/ui-arkui-overview-0000001178378456" target="_blank"><strong>https://developer.harmonyos.com/en/docs/documentation/doc-guides/ui-arkui-overview-0000001178378456</strong></a></p>
+<p><a href="https://developer.harmonyos.com/en/docs/documentation/doc-references/js-apis-overview-0000001056361791" target="_blank"><strong>https://developer.harmonyos.com/en/docs/documentation/doc-references/js-apis-overview-0000001056361791</strong></a> </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="1">
+        <p>Congratulations, you have learnt</p>
+<ul>
+<li>How to create an app using eTS programming language in HarmonyOS.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

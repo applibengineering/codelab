@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-03-15T12:56:59Z",
+  "id": "smpl-applib-ets-dev-guide",
+  "duration": 17,
+  "title": "Build basic HarmonyOS App in eTS",
+  "authors": "Application Library Engineering Group",
+  "summary": "In this codelab, you'll learn how to build and run your first HarmonyOS app in the eTS programming language",
+  "source": "1kEVW7WXC3r9HREwB7My-EhmAJXKwX99wGfF4X63kXbc",
+  "theme": "sample",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Sample"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/applibgroup/applibgroup.github.io/issues",
+  "ga": "UA-52746336-1",
+  "url": "smpl-applib-ets-dev-guide"
+}
